@@ -34,7 +34,6 @@
       "bundleIdentifier": "com.ramkarri7.Cometshare",
       "supportsTablet": true,
       "config": {
-        "googleMapsApiKey": "AIzaSyC957EZoJ15VF94dddclJ5QZ-x5M-8l9O4"
       },
       "infoPlist": {
         "NSCameraUsageDescription": "The app needs permission to your camera so users have the ability to upload taken photos to be used as a reciept or post to be reviewed.",
