@@ -1,21 +1,157 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from "react";
+import { StyleSheet, AsyncStorage } from "react-native";
+import * as eva from "@eva-design/eva";
+import { ApplicationProvider, IconRegistry, Tab } from "@ui-kitten/components";
+import { default as theme } from "./theme.json";
+import { EvaIconsPack } from "@ui-kitten/eva-icons";
+import { createStackNavigator } from "@react-navigation/stack";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import Loading from "./components/Loading";
+import forgotPassword from "./components/forgotPassword";
+import TermsAndConditions from "./components/TermsAndConditions";
+import Privacy from "./components/Privacy";
+import { NavigationContainer } from "@react-navigation/native";
+import { AuthContext } from "./components/context";
+import { setGlobal } from "reactn";
+import TopStack from "./components/TopStack";
+import { AppLoading } from "expo";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+const Stack = createStackNavigator();
+
+setGlobal({
+  profile: {},
+});
+
+const App = () => {
+  const [initialState, setInitialState] = React.useState();
+
+  const initialLoginState = {
+    isLoading: true,
+    userToken: null,
+  };
+
+  const ref = React.useRef();
+
+  const loginReducer = (prevState, action) => {
+    switch (action.type) {
+      case "RETRIEVE_TOKEN":
+        return {
+          ...prevState,
+          userToken: action.token,
+          isLoading: false,
+        };
+      case "LOGIN":
+        return {
+          ...prevState,
+          userToken: action.token,
+          isLoading: false,
+        };
+      case "LOGOUT":
+        return {
+          ...prevState,
+          userToken: null,
+          isLoading: false,
+        };
+      case "REGISTER":
+        return {
+          ...prevState,
+          userToken: action.token,
+          isLoading: false,
+        };
+    }
+  };
+
+  const [loginState, dispatch] = React.useReducer(
+    loginReducer,
+    initialLoginState
   );
-}
 
+  const authContext = React.useMemo(
+    () => ({
+      signIn: async (data) => {
+        try {
+          await AsyncStorage.setItem("token", data.token);
+        } catch (data) {}
+        dispatch({ type: "LOGIN", token: data.token });
+      },
+      signOut: async () => {
+        try {
+          await AsyncStorage.removeItem("token");
+        } catch (e) {}
+        dispatch({ type: "LOGOUT" });
+      },
+    }),
+    []
+  );
+
+  const [isLoading, setisLoading] = useState(true);
+  useEffect(() => {
+    setTimeout(async () => {
+      setisLoading(false);
+      let userToken;
+      userToken = null;
+      try {
+        userToken = await AsyncStorage.getItem("token");
+      } catch (e) {}
+      dispatch({ type: "RETRIEVE_TOKEN", token: userToken });
+    }, 1000);
+  }, []);
+
+  if (loginState.isLoading) {
+    return <AppLoading />;
+  } else {
+    return (
+      <>
+        <IconRegistry icons={EvaIconsPack} />
+        <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
+          <AuthContext.Provider value={authContext}>
+            <NavigationContainer>
+              {loginState.userToken == null ? (
+                <Stack.Navigator
+                  screenOptions={{
+                    headerStyle: {
+                      backgroundColor: theme["color-primary-500"],
+                    },
+                    headerTintColor: "#fff",
+                  }}
+                  initialRouteName="Login"
+                >
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="Login"
+                    component={Login}
+                  />
+                  <Stack.Screen
+                    options={{ headerShown: false }}
+                    name="Signup"
+                    component={Signup}
+                  />
+                  <Stack.Screen
+                    name="Forgot Password"
+                    component={forgotPassword}
+                  />
+                  <Stack.Screen
+                    name="Terms and Conditions"
+                    component={TermsAndConditions}
+                  />
+                  <Stack.Screen name="Privacy Policy" component={Privacy} />
+                  <Stack.Screen name="Loading" component={Loading} />
+                </Stack.Navigator>
+              ) : (
+                <TopStack />
+              )}
+            </NavigationContainer>
+          </AuthContext.Provider>
+        </ApplicationProvider>
+      </>
+    );
+  }
+};
+
+export default App;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });

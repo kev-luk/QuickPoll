@@ -1,26 +1,57 @@
 {
   "expo": {
-    "name": "QuickPoll",
-    "slug": "QuickPoll",
-    "version": "1.0.0",
+    "packagerOpts": {
+      "config": "metro.config.js",
+      "sourceExts": [
+        "expo.ts",
+        "expo.tsx",
+        "expo.js",
+        "expo.jsx",
+        "ts",
+        "tsx",
+        "js",
+        "jsx",
+        "json",
+        "wasm",
+        "svg"
+      ]
+    },
+    "name": "Cometshare",
+    "slug": "Cometshare",
+    "version": "1.0.5",
     "orientation": "portrait",
+    "scheme": "myapp",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#FE2C54"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "com.ramkarri7.Cometshare",
+      "supportsTablet": true,
+      "config": {
+        "googleMapsApiKey": "AIzaSyC957EZoJ15VF94dddclJ5QZ-x5M-8l9O4"
+      },
+      "infoPlist": {
+        "NSCameraUsageDescription": "The app needs permission to your camera so users have the ability to upload taken photos to be used as a reciept or post to be reviewed.",
+        "NSPhotoLibraryUsageDescription": "The app needs permission to your camera roll so users have the ability to upload taken photos to be used as a reciept or post to be reviewed."
+      }
+    },
+    "android": {
+      "package": "com.ramkarri7.Cometshare",
+      "versionCode": 1,
+      "playStoreUrl": "https://play.google.com/store/apps/details?id=com.ramkarri7.Cometshare",
+      "config": {
+        "googleMaps": { "apiKey": "AIzaSyAPLtOxqRRWkuUvXduriXwBv6VAEF_mJeM" }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": ""
   }
 }
