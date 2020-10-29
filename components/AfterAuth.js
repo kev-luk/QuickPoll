@@ -1,8 +1,10 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
+import { MaterialIcons } from '@expo/vector-icons';
 import HomeStack from "./HomeStack";
 import ProfileStack from "./ProfileStack";
+import CreatePostStack from "./CreatePostStack"
 import EndorsementStack from "./EndorsementStack";
 import theme from "../theme.json";
 import SettingsStack from "./SettingsStack";
@@ -19,13 +21,22 @@ const AfterAuth = () => {
   );
 
   const myIcon = (focused, props) => (
-    <Ionicons
+    <MaterialIcons
       {...props}
-      name="ios-list"
+      name="search"
       size={30}
       color={focused ? theme["color-primary-500"] : "black"}
     />
   );
+
+  const myIconPost = (focused, props) => {
+    <MaterialIcons
+      {...props}
+      name="add-circle-outline"
+      size={30}
+      color={focused ? theme["color-primary-500"] : "black"}
+    />
+  }
 
   const myIconProfile = (focused, props) => (
     <Ionicons
@@ -49,14 +60,6 @@ const AfterAuth = () => {
     <Tabs.Navigator initialRouteName="HomeStack">
       <Tabs.Screen
         options={{
-          title: "Profile",
-          tabBarIcon: ({ focused }) => myIconProfile(focused),
-        }}
-        name="ProfileStack"
-        component={ProfileStack}
-      />
-      <Tabs.Screen
-        options={{
           title: "Home",
           tabBarIcon: ({ focused }) => myIconHome(focused),
         }}
@@ -65,11 +68,27 @@ const AfterAuth = () => {
       />
       <Tabs.Screen
         options={{
-          title: "Endorsements",
+          title: "Search",
           tabBarIcon: ({ focused }) => myIcon(focused),
         }}
         name="EndorsementsStack"
         component={EndorsementStack}
+      />
+      <Tabs.Screen
+        options={{
+          title: "Post",
+          tabBarIcon: ({ focused }) => myIconPost(focused),
+        }}
+        name="CreatePostStack"
+        component={CreatePostStack}
+      />
+      <Tabs.Screen
+        options={{
+          title: "Profile",
+          tabBarIcon: ({ focused }) => myIconProfile(focused),
+        }}
+        name="ProfileStack"
+        component={ProfileStack}
       />
       <Tabs.Screen
         options={{

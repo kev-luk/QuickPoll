@@ -18,7 +18,7 @@ const HomeStack = () => {
     >
       <Stack.Screen
         name="Home"
-        options={{ headerShown: false }}
+        options={{ headerShown: true }}
         component={Home}
       />
       {/* <Stack.Screen name="Create Endorsement" component={CreateEndorsement} /> */}
