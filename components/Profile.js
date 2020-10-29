@@ -52,15 +52,40 @@ const ProfileSettings = (props) => {
           <Layout style={styles.header} level="1">
             <View style={styles.profileContainer}>
               <View style={styles.profileDetailsContainer}>
-                <Text category="h4">Ram Karri</Text>
+                <Text category="h4" style={styles.profileUserName}>QuickPoll</Text>
                 <View style={styles.profileLocationContainer}>
-                  <Text
-                    style={styles.profileLocation}
-                    appearance="hint"
-                    category="s1"
-                  >
-                    ramkarri7
-                  </Text>
+                  <View style={styles.profileStats}>
+                    <View style={styles.statBlock}>
+                      <Text>
+                        10 Followers
+                      </Text>
+                    </View>
+                    <View style={styles.statBlock}>
+                      <Text>
+                        8 Polls
+                      </Text>
+                    </View>
+                    <View style={styles.statBlock}>
+                      <Text>
+                        2020
+                      </Text>
+                      <Text>
+                        Responses
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={styles.profileInformation}>
+                    <Text
+                      style={styles.profileLocation}
+                      appearance="hint"
+                      category="s1"
+                    >
+                      John Doe
+                    </Text>
+                    <Text>
+                      Welcome to QuickPoll! Checkout and respond to my polls!
+                    </Text>
+                  </View>
                 </View>
               </View>
             </View>
@@ -88,18 +113,18 @@ const styles = StyleService.create({
     justifyContent: "center",
   },
   profileContainer: {
-    flexDirection: "row",
+    flexDirection: "column",
   },
   profileDetailsContainer: {
     flex: 1,
     marginHorizontal: 8,
   },
   profileLocationContainer: {
-    flexDirection: "row",
+    flexDirection: "column",
     alignItems: "center",
   },
   profileLocation: {
-    marginHorizontal: 8,
+    marginBottom: 5,
   },
   profileSocialsContainer: {
     flexDirection: "row",
@@ -107,4 +132,23 @@ const styles = StyleService.create({
     marginTop: 24,
     marginBottom: 8,
   },
+  profileUserName: {
+    textAlign: "center"
+  },
+  profileStats: {
+    flex: "space-between"
+  },
+  profileStats: {
+    flexDirection: 'row'
+  },
+  statBlock: {
+    textAlign: 'center',
+    fontWeight: 800,
+    padding: 15,
+    flexDirection: 'column'
+  },
+  profileInformation: {
+    textAlign: "left",
+    marginBottom: 12,
+  }
 });
