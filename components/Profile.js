@@ -52,26 +52,20 @@ const ProfileSettings = (props) => {
           <Layout style={styles.header} level="1">
             <View style={styles.profileContainer}>
               <View style={styles.profileDetailsContainer}>
-                <Text category="h4" style={styles.profileUserName}>QuickPoll</Text>
+                <Text category="h4" style={styles.profileUserName}>
+                  QuickPoll
+                </Text>
                 <View style={styles.profileLocationContainer}>
                   <View style={styles.profileStats}>
                     <View style={styles.statBlock}>
-                      <Text>
-                        10 Followers
-                      </Text>
+                      <Text>10 Followers</Text>
                     </View>
                     <View style={styles.statBlock}>
-                      <Text>
-                        8 Polls
-                      </Text>
+                      <Text>8 Polls</Text>
                     </View>
                     <View style={styles.statBlock}>
-                      <Text>
-                        2020
-                      </Text>
-                      <Text>
-                        Responses
-                      </Text>
+                      <Text>2020</Text>
+                      <Text>Responses</Text>
                     </View>
                   </View>
                   <View style={styles.profileInformation}>
@@ -90,6 +84,13 @@ const ProfileSettings = (props) => {
               </View>
             </View>
             <Divider style={styles.profileSocialDivider} />
+            <Button
+              onPress={onLogout}
+              style={styles.logoutButton}
+              //status="danger"
+            >
+              Logout
+            </Button>
           </Layout>
         </ScrollView>
       </Layout>
@@ -133,22 +134,29 @@ const styles = StyleService.create({
     marginBottom: 8,
   },
   profileUserName: {
-    textAlign: "center"
+    textAlign: "center",
   },
   profileStats: {
-    flex: "space-between"
+    flex: "space-between",
   },
   profileStats: {
-    flexDirection: 'row'
+    flexDirection: "row",
   },
   statBlock: {
-    textAlign: 'center',
+    textAlign: "center",
     fontWeight: 800,
     padding: 15,
-    flexDirection: 'column'
+    flexDirection: "column",
   },
   profileInformation: {
     textAlign: "left",
     marginBottom: 12,
-  }
+  },
+  logoutButton: {
+    //position: 'absolute',
+    width: "75%",
+    alignSelf: "center",
+    marginTop: "5%",
+    margin: 16,
+  },
 });

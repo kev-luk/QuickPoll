@@ -18,7 +18,7 @@
     },
     "name": "QuickPoll",
     "slug": "QuickPoll",
-    "version": "1.0.5",
+    "version": "1.0.0",
     "orientation": "portrait",
     "scheme": "myapp",
     "icon": "./assets/icon.png",
@@ -31,26 +31,28 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "bundleIdentifier": "com.ramkarri7.Cometshare",
+      "bundleIdentifier": "com.ramkarri7.QuickPoll",
       "supportsTablet": true,
       "config": {
       },
       "infoPlist": {
-        "NSCameraUsageDescription": "The app needs permission to your camera so users have the ability to upload taken photos to be used as a reciept or post to be reviewed.",
         "NSPhotoLibraryUsageDescription": "The app needs permission to your camera roll so users have the ability to upload taken photos to be used as a reciept or post to be reviewed."
       }
     },
     "android": {
-      "package": "com.ramkarri7.Cometshare",
+      "package": "com.ramkarri7.QuickPoll",
       "versionCode": 1,
-      "playStoreUrl": "https://play.google.com/store/apps/details?id=com.ramkarri7.Cometshare",
+      "playStoreUrl": "https://play.google.com/store/apps/details?id=com.ramkarri7.QuickPoll",
       "config": {
-        "googleMaps": { "apiKey": "AIzaSyAPLtOxqRRWkuUvXduriXwBv6VAEF_mJeM" }
       }
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "facebookScheme": "fb381289249733338",
+    "facebookAppId": "381289249733338",
+    "facebookDisplayName": "QuickPoll",
+    "facebookAutoInitEnabled": true,
     "description": ""
   }
 }
