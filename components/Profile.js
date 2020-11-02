@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, RefreshControl, View } from "react-native";
+import { ScrollView, RefreshControl, View, Image } from "react-native";
 import {
   Button,
   Text,
@@ -11,6 +11,7 @@ import {
   Spinner,
 } from "@ui-kitten/components";
 import { AuthContext } from "./context";
+import { TextStyleProps } from "@ui-kitten/components/devsupport";
 
 const ProfileSettings = (props) => {
   const { signOut } = React.useContext(AuthContext);
@@ -58,13 +59,39 @@ const ProfileSettings = (props) => {
                 <View style={styles.profileLocationContainer}>
                   <View style={styles.profileStats}>
                     <View style={styles.statBlock}>
-                      <Text>10 Followers</Text>
+                      <Text
+                        style={{
+                          fontSize: 20,
+                          fontWeight: "700",
+                          textAlign: "center",
+                        }}
+                      >
+                        10
+                      </Text>
+                      <Text>Followers</Text>
                     </View>
                     <View style={styles.statBlock}>
-                      <Text>8 Polls</Text>
+                      <Text
+                        style={{
+                          fontSize: 20,
+                          fontWeight: "700",
+                          textAlign: "center",
+                        }}
+                      >
+                        8
+                      </Text>
+                      <Text>Polls</Text>
                     </View>
                     <View style={styles.statBlock}>
-                      <Text>2020</Text>
+                      <Text
+                        style={{
+                          fontSize: 20,
+                          fontWeight: "700",
+                          textAlign: "center",
+                        }}
+                      >
+                        2020
+                      </Text>
                       <Text>Responses</Text>
                     </View>
                   </View>
@@ -144,7 +171,7 @@ const styles = StyleService.create({
   },
   statBlock: {
     textAlign: "center",
-    fontWeight: 800,
+    fontWeight: "800",
     padding: 15,
     flexDirection: "column",
   },
