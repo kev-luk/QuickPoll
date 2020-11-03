@@ -16,7 +16,7 @@ const HomeStack = () => {
         headerTintColor: "#fff",
       }}
     >
-      <Stack.Screen name="My Endorsements" component={MyEndorsements} />
+      <Stack.Screen name="Search" component={MyEndorsements} />
     </Stack.Navigator>
   );
 };

@@ -19,6 +19,12 @@ const Setting = (props) => {
           style={styles.setting}
           hint="Terms and Conditions"
         />
+        <SettingCard
+          navigation={props.navigation}
+          destination="Edit Profile"
+          style={styles.setting}
+          hint="Edit Profile"
+        />
       </Layout>
     </SafeAreaView>
   );

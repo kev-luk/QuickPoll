@@ -49,14 +49,7 @@ const Home = ({ navigation }) => {
       ]
     },
   ]
-  // return (
-  //   postList.map((post, index) => {
-  //     // console.log(post.question)
-  //     < View style={styles.questionContainer} key={index} >
-  //       <Text style={styles.questionHeader}>{post.question}</Text>
-  //     </View >
-  //   })
-  // )
+
   return (
     <View style={styles.questionContainer}>
       <Text style={styles.questionHeader}>{postList[0].question}</Text>

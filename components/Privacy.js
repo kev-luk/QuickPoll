@@ -9,7 +9,7 @@ const Privacy = () => {
         <View style={styles.header}>
           <Text style={styles.privacyHeader}>PRIVACY POLICY</Text>
           <Text style={{ marginHorizontal: 15 }} category="p1">
-            Privacy Policy CometShare built the Comet Share app as a Commercial
+            Privacy Policy CometShare built the QuickPoll app as a Commercial
             app. This SERVICE is provided by CometShare and is intended for use
             as is. This page is used to inform visitors regarding our policies
             with the collection, use, and disclosure of Personal Information if
@@ -19,7 +19,7 @@ const Privacy = () => {
             providing and improving the Service. We will not use or share your
             information with anyone except as described in this Privacy Policy.
             The terms used in this Privacy Policy have the same meanings as in
-            our Terms and Conditions, which is accessible at Comet Share unless
+            our Terms and Conditions, which is accessible at QuickPoll unless
             otherwise defined in this Privacy Policy.
           </Text>
           <Text style={styles.sub}>Information Collection and Use </Text>

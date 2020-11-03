@@ -29,7 +29,7 @@ const TermsAndConditions = () => {
             without making it very clear to you exactly what you’re paying for.
           </Text>
           <Text style={{ marginHorizontal: 15 }} category="p1">
-            The Comet Share app stores and processes personal data that you have
+            The QuickPoll app stores and processes personal data that you have
             provided to us, in order to provide our Service. It’s your
             responsibility to keep your phone and access to the app secure. We
             therefore recommend that you do not jailbreak or root your phone,
@@ -37,7 +37,7 @@ const TermsAndConditions = () => {
             limitations imposed by the official operating system of your device.
             It could make your phone vulnerable to malware/viruses/malicious
             programs, compromise your phone’s security features and it could
-            mean that the Comet Share app won’t work properly or at all.
+            mean that the QuickPoll app won’t work properly or at all.
           </Text>
           <Text style={{ marginHorizontal: 15 }} category="p1">
             The app does use third party services that declare their own Terms

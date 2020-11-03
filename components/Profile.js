@@ -95,6 +95,7 @@ const ProfileSettings = (props) => {
                       <Text>Responses</Text>
                     </View>
                   </View>
+                  <Button style={styles.editProfileButton}>Edit Profile</Button>
                   <View style={styles.profileInformation}>
                     <Text
                       style={styles.profileLocation}
@@ -114,7 +115,7 @@ const ProfileSettings = (props) => {
             <Button
               onPress={onLogout}
               style={styles.logoutButton}
-              //status="danger"
+            //status="danger"
             >
               Logout
             </Button>
@@ -186,4 +187,9 @@ const styles = StyleService.create({
     marginTop: "5%",
     margin: 16,
   },
+  editProfileButton: {
+    width: "100%",
+    alignSelf: "center",
+    margin: 10,
+  }
 });
