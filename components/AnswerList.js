@@ -17,6 +17,7 @@ const answerList = (props) => {
                 name='trash-2'
                 size='24'
                 color='red'
+                style={{ marginLeft: '2' }}
                 onPress={props.deleteAnswer}
             />
         </View>

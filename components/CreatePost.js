@@ -9,6 +9,7 @@ import {
     Layout,
 } from "@ui-kitten/components";
 import answerList from "./AnswerList"
+import theme from "../theme.json";
 
 const CreatePost = () => {
     const [answerValue, setAnswerValue] = useState('')
@@ -49,7 +50,10 @@ const CreatePost = () => {
                         />
 
                         <TouchableOpacity>
-                            <Icon name='plus' onPress={() => { addAnswer() }} />
+                            <Icon
+                                name='plus'
+                                size={30}
+                                onPress={() => { addAnswer() }} />
                         </TouchableOpacity>
 
                         {
@@ -62,7 +66,7 @@ const CreatePost = () => {
                         }
                     </View>
                     <Button
-                        style={styles.signUpButton}
+                        style={styles.createButton}
                         size="giant"
                     >
                         Create Poll
@@ -78,8 +82,8 @@ export default CreatePost
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // backgroundColor: theme["color-primary-500"],
-        backgroundColor: "#14A085"
+        backgroundColor: theme["color-primary-500"],
+        justifyContent: 'center',
     },
     formContainer: {
         flex: 1,
@@ -89,7 +93,8 @@ const styles = StyleSheet.create({
     formInput: {
         marginTop: 16,
     },
-    signUpButton: {
+    createButton: {
         marginHorizontal: 16,
+        backgroundColor: 'black'
     },
 });

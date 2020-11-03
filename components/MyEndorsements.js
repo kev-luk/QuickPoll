@@ -4,19 +4,34 @@ import {
   View,
   SafeAreaView,
   KeyboardAvoidingView,
+  ScrollView
 } from "react-native";
+import {
+  Text,
+  Input,
+  Spinner,
+  Layout,
+  Button
+} from "@ui-kitten/components";
 
-import { Text, Spinner, Layout } from "@ui-kitten/components";
-
-const MyEndorsements = (props) => {
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
+const MyEndorsements = () => {
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView style={styles.container}>
-        <Layout level="2" style={styles.container}>
-          <View style={styles.body}></View>
+        <Layout level="3" style={styles.container}>
+          <View style={styles.body}>
+            <Input
+              style={styles.formInput}
+              status="control"
+              autoCapitalize="words"
+              placeholder="Search for a poll" />
+            <ScrollView style={styles.scroll}>
+              <Button>Press</Button>
+              <Button>Press</Button>
+              <Button>Press</Button>
+              <Button>Press</Button>
+            </ScrollView>
+          </View>
         </Layout>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -38,7 +53,17 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     marginTop: 10,
-    justifyContent: "center",
     //flexDirection: "column-reverse",
   },
+  formInput: {
+    marginTop: 5,
+    marginBottom: 10,
+    color: 'black',
+    borderRadius: 10,
+    width: '95%',
+    backgroundColor: '#DDDDDD',
+  },
+  scroll: {
+    width: '95%'
+  }
 });
