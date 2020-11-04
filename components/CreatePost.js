@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Text, Button, TextInput, StyleSheet, View, KeyboardAvoidingView, TouchableOpacity, SafeAreaView, ScrollView, FlatList } from "react-native";
 import Icon from "react-native-vector-icons/Feather"
 import AnswerList from "./AnswerList";
-import { Entypo } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 
 const CreatePost = () => {
     const [answerValue, setAnswerValue] = useState('')
@@ -49,9 +49,9 @@ const CreatePost = () => {
                         />
 
                         <TouchableOpacity onPress={() => addAnswer()} >
-                            <Entypo
-                                name='plus'
-                                size={35}
+                            <Feather
+                                name='plus-circle'
+                                size={30}
                                 style={styles.icon}
                             />
                         </TouchableOpacity>
@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
     },
     icon: {
         textAlign: 'center',
-        color: 'black',
+        color: '#06ba00',
+        marginTop: 10
     }
 });
