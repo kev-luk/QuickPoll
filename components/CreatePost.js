@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Text, Button, TextInput, StyleSheet, View, KeyboardAvoidingView, TouchableOpacity, SafeAreaView, ScrollView, FlatList } from "react-native";
 import Icon from "react-native-vector-icons/Feather"
-import theme from "../theme.json";
 import AnswerList from "./AnswerList";
+import { Entypo } from '@expo/vector-icons';
 
 const CreatePost = () => {
     const [answerValue, setAnswerValue] = useState('')
@@ -10,18 +10,18 @@ const CreatePost = () => {
 
     const addAnswer = () => {
         if (answerValue.length > 0) {
-            setAnswers(...answers, { text: answerValue })
+            setAnswers([...answers, { text: answerValue, key: Date.now() }])
             setAnswerValue('')
         }
     }
 
-    // const deleteAnswer = id => {
-    //     setAnswers(
-    //         answers.filter(answer => {
-    //             if (answer.key !== id) return true;
-    //         })
-    //     );
-    // }
+    const deleteAnswer = id => {
+        setAnswers(
+            answers.filter(answer => {
+                if (answer.key !== id) return true;
+            })
+        );
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -48,25 +48,23 @@ const CreatePost = () => {
                             onChangeText={answerValue => setAnswerValue(answerValue)}
                         />
 
-                        <TouchableOpacity onPress={() => { addAnswer() }} >
-                            <Icon
+                        <TouchableOpacity onPress={() => addAnswer()} >
+                            <Entypo
                                 name='plus'
-                                size={30}
+                                size={35}
                                 style={styles.icon}
                             />
                         </TouchableOpacity>
                     </View>
-                    {/* <ScrollView style={{ width: '95%' }}>
-                        {
-                            answers.map(item => {
-                                <AnswerList
-                                    text={item.text}
-                                // key={item.key}
-                                // deleteAnswer={() => deleteAnswer(item.key)}
-                                />
-                            })
-                        }
-                    </ScrollView> */}
+                    <ScrollView style={{ width: '95%' }}>
+                        {answers.map(item => (
+                            <AnswerList
+                                text={item.text}
+                                key={item.key}
+                                deleteAnswer={() => deleteAnswer(item.key)}
+                            />
+                        ))}
+                    </ScrollView>
                     <TouchableOpacity style={styles.createButton}>
                         <Text style={styles.createButtonText}>Create Poll</Text>
                     </TouchableOpacity>
@@ -97,6 +95,7 @@ const styles = StyleSheet.create({
         borderColor: '#BBBBBB',
     },
     createButton: {
+        marginVertical: 15,
         marginHorizontal: 16,
         padding: 15,
         borderRadius: 10,
@@ -106,10 +105,10 @@ const styles = StyleSheet.create({
     createButtonText: {
         color: 'white',
         fontSize: 20,
-        fontWeight: '700'
+        fontWeight: '700',
     },
     icon: {
-        flex: 1,
-        justifyContent: 'center',
+        textAlign: 'center',
+        color: 'black',
     }
 });

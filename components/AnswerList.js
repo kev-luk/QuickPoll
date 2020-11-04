@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { StyleSheet, View, KeyboardAvoidingView, TouchableOpacity, SafeAreaView, ScrollView } from "react-native";
+import { Text, StyleSheet, View, KeyboardAvoidingView, TouchableOpacity, SafeAreaView, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/Feather"
-import { Text } from "@ui-kitten/components";
 
 const AnswerList = (props) => {
     return (
@@ -9,10 +8,10 @@ const AnswerList = (props) => {
             <Text style={styles.listItem}>{props.text}</Text>
             <Icon
                 name='trash-2'
-                size='24'
+                size='20'
                 color='red'
-                style={{ marginLeft: '2' }}
-            // onPress={props.deleteAnswer}
+                style={{ marginLeft: 3 }}
+                onPress={props.deleteAnswer}
             />
         </View>
     )
@@ -25,18 +24,18 @@ const styles = StyleSheet.create({
         marginTop: '5%',
         flexDirection: 'row',
         borderColor: '#aaaaaa',
-        borderBottomWidth: 1.5,
+        borderBottomWidth: 1,
         width: '100%',
         alignItems: 'stretch',
-        minHeight: 40
+        minHeight: 40,
+        justifyContent: 'space-between'
     },
     listItem: {
         paddingBottom: 20,
         paddingLeft: 10,
         marginTop: 6,
-        borderColor: 'green',
         borderBottomWidth: 1,
-        fontSize: 17,
+        fontSize: 15,
         fontWeight: 'bold',
         color: 'black'
     }
