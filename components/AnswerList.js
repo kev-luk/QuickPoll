@@ -1,15 +1,9 @@
 import React, { useState } from "react";
 import { StyleSheet, View, KeyboardAvoidingView, TouchableOpacity, SafeAreaView, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/Feather"
-import {
-    Button,
-    Input,
-    Text,
-    Modal,
-    Layout,
-} from "@ui-kitten/components";
+import { Text } from "@ui-kitten/components";
 
-const answerList = (props) => {
+const AnswerList = (props) => {
     return (
         <View style={styles.listContainer}>
             <Text style={styles.listItem}>{props.text}</Text>
@@ -18,13 +12,13 @@ const answerList = (props) => {
                 size='24'
                 color='red'
                 style={{ marginLeft: '2' }}
-                onPress={props.deleteAnswer}
+            // onPress={props.deleteAnswer}
             />
         </View>
     )
 }
 
-export default answerList
+export default AnswerList
 
 const styles = StyleSheet.create({
     listContainer: {

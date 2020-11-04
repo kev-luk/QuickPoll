@@ -1,76 +1,75 @@
 import React, { useState } from "react";
-import { StyleSheet, View, KeyboardAvoidingView, TouchableOpacity, SafeAreaView, ScrollView } from "react-native";
+import { Text, Button, TextInput, StyleSheet, View, KeyboardAvoidingView, TouchableOpacity, SafeAreaView, ScrollView, FlatList } from "react-native";
 import Icon from "react-native-vector-icons/Feather"
-import {
-    Button,
-    Input,
-    Text,
-    Modal,
-    Layout,
-} from "@ui-kitten/components";
-import answerList from "./AnswerList"
 import theme from "../theme.json";
+import AnswerList from "./AnswerList";
 
 const CreatePost = () => {
     const [answerValue, setAnswerValue] = useState('')
     const [answers, setAnswers] = useState([])
 
     const addAnswer = () => {
-        if (value.length > 0) {
-            setAnswers(...answers, { text: value, key: index })
+        if (answerValue.length > 0) {
+            setAnswers(...answers, { text: answerValue })
             setAnswerValue('')
         }
     }
 
-    const deleteAnswer = index => {
-        setAnswers(
-            answers.filter(answer => {
-                if (answer.key !== index) return true;
-            })
-        );
-    }
+    // const deleteAnswer = id => {
+    //     setAnswers(
+    //         answers.filter(answer => {
+    //             if (answer.key !== id) return true;
+    //         })
+    //     );
+    // }
 
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView>
                 <KeyboardAvoidingView style={styles.container}>
                     <View style={styles.formContainer}>
-                        <Input
+                        <TextInput
                             style={styles.formInput}
                             status="control"
                             autoCapitalize="words"
                             placeholder="Title of your poll"
                         />
-                        <Input
+                        <TextInput
+                            style={styles.formInput}
+                            status="control"
+                            autoCapitalize="words"
+                            placeholder="Enter tags that describe your poll"
+                        />
+                        <TextInput
                             style={styles.formInput}
                             status="control"
                             placeholder="Add an answer"
                             value={answerValue}
-                            onChange={value => setAnswerValue(value)}
+                            onChangeText={answerValue => setAnswerValue(answerValue)}
                         />
 
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => { addAnswer() }} >
                             <Icon
                                 name='plus'
                                 size={30}
-                                onPress={() => { addAnswer() }} />
+                                style={styles.icon}
+                            />
                         </TouchableOpacity>
-
+                    </View>
+                    {/* <ScrollView style={{ width: '95%' }}>
                         {
                             answers.map(item => {
-                                <answerList
+                                <AnswerList
                                     text={item.text}
-                                    deleteAnswer={() => deleteAnswer(item.key)}
+                                // key={item.key}
+                                // deleteAnswer={() => deleteAnswer(item.key)}
                                 />
                             })
                         }
-                    </View>
-                    <Button
-                        style={styles.createButton}
-                        size="giant"
-                    >
-                        Create Poll
-                    </Button>
+                    </ScrollView> */}
+                    <TouchableOpacity style={styles.createButton}>
+                        <Text style={styles.createButtonText}>Create Poll</Text>
+                    </TouchableOpacity>
                 </KeyboardAvoidingView>
             </ScrollView>
         </SafeAreaView>
@@ -82,19 +81,35 @@ export default CreatePost
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: theme["color-primary-500"],
+        // backgroundColor: theme["color-primary-500"],
         justifyContent: 'center',
     },
     formContainer: {
         flex: 1,
-        paddingTop: 32,
-        paddingHorizontal: 16,
+        paddingHorizontal: 15,
     },
     formInput: {
-        marginTop: 16,
+        marginTop: 15,
+        padding: 10,
+        backgroundColor: '#EEEEEE',
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#BBBBBB',
     },
     createButton: {
         marginHorizontal: 16,
-        backgroundColor: 'black'
+        padding: 15,
+        borderRadius: 10,
+        backgroundColor: '#14A085',
+        alignItems: 'center'
     },
+    createButtonText: {
+        color: 'white',
+        fontSize: 20,
+        fontWeight: '700'
+    },
+    icon: {
+        flex: 1,
+        justifyContent: 'center',
+    }
 });

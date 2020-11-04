@@ -2,42 +2,38 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Text, Layout } from "@ui-kitten/components";
 import { ScrollView } from "react-native-gesture-handler";
-import { LineChart, BarChart } from "react-native-chart-kit";
-import { Dimensions } from "react-native";
+import { VictoryChart, VictoryGroup, VictoryBar, VictoryLabel } from "victory-native";
 
 const PollChart = () => {
 
-    const screenWidth = Dimensions.get("window").width;
-
     const data = {
-        labels: ["January", "February", "March", "April", "May", "June"],
-        datasets: [
-            {
-                data: [20, 45, 28, 80, 99, 43]
-            }
+        pollResults: [
+            { x: 'Rap', y: '25' },
+            { x: 'Country', y: '50' },
+            { x: 'Classical', y: '75' },
+            { x: 'Jazz', y: '100' },
         ]
-    };
-
-    const chartConfig = {
-        backgroundGradientFrom: "#FFFFFF",
-        backgroundGradientFromOpacity: 1,
-        backgroundGradientTo: "#FFFFFF",
-        color: (opacity = 1) => `rgba(0,0,0, ${opacity})`,
-        strokeWidth: 2, // optional, default 3
-        barPercentage: 0.5,
-        useShadowColorFromDataset: false // optional
-    };
+    }
 
     return (
         <View>
-            <BarChart
-                data={data}
-                width={screenWidth}
-                height={220}
-                yAxisLabel="$"
-                chartConfig={chartConfig}
-                verticalLabelRotation={30}
-            />
+            <VictoryChart
+                domainPadding={{ x: 25 }}>
+                <VictoryGroup>
+                    <VictoryBar
+                        data={data.pollResults}
+                        style={{
+                            data: {
+                                fill: 'blue'
+                            }
+                        }}
+                        animate={{
+                            duration: 2000,
+                            onLoad: { duration: 1000 }
+                        }}
+                    />
+                </VictoryGroup>
+            </VictoryChart>
         </View>
     )
 }

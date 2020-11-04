@@ -26,10 +26,10 @@ const MyEndorsements = () => {
               autoCapitalize="words"
               placeholder="Search for a poll" />
             <ScrollView style={styles.scroll}>
-              <Button>Press</Button>
-              <Button>Press</Button>
-              <Button>Press</Button>
-              <Button>Press</Button>
+              <Button style={styles.button}>Poll 1</Button>
+              <Button style={styles.button}>Poll 2</Button>
+              <Button style={styles.button}>Poll 3</Button>
+              <Button style={styles.button}>Poll 4</Button>
             </ScrollView>
           </View>
         </Layout>
@@ -65,5 +65,8 @@ const styles = StyleSheet.create({
   },
   scroll: {
     width: '95%'
+  },
+  button: {
+    marginBottom: 10
   }
 });
