@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, RefreshControl, View, Image } from "react-native";
+import { ScrollView, RefreshControl, View, Image, TouchableOpacity } from "react-native";
 import {
   Button,
   Text,
@@ -112,6 +112,15 @@ const ProfileSettings = (props) => {
               </View>
             </View>
             <Divider style={styles.profileSocialDivider} />
+            <TouchableOpacity style={styles.pollButton}>
+              <Text style={styles.pollButtonText}>Which movie is better?</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.pollButton}>
+              <Text style={styles.pollButtonText}>Favorite color?</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.pollButton}>
+              <Text style={styles.pollButtonText}>Best artist of 2020?</Text>
+            </TouchableOpacity>
             <Button
               onPress={onLogout}
               style={styles.logoutButton}
@@ -191,5 +200,29 @@ const styles = StyleService.create({
     width: "100%",
     alignSelf: "center",
     margin: 10,
-  }
+  },
+  pollButton: {
+    marginVertical: 10,
+    marginHorizontal: 16,
+    padding: 15,
+    borderRadius: 10,
+    backgroundColor: 'white',
+    borderColor: "A7A7A7",
+    borderWidth: 1,
+    alignItems: 'center',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+
+    elevation: 4,
+  },
+  pollButtonText: {
+    color: 'black',
+    fontSize: 15,
+    fontWeight: '500',
+  },
 });
