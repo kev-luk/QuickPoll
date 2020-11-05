@@ -48,12 +48,6 @@ export default function Login({ navigation }) {
     setPasswordVisible(!passwordVisible);
   };
 
-  const eyeIcon = (props) => (
-    <TouchableWithoutFeedback onPress={onPasswordIconPress}>
-      <Icon {...props} name={!passwordVisible ? "eye-off" : "eye"} />
-    </TouchableWithoutFeedback>
-  );
-
   const saveAuth = async (token, credential) => {
     signIn(token);
     AsyncStorage.setItem("credential", credential);

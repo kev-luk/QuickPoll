@@ -1,55 +1,99 @@
 import React, { useEffect, useState } from "react";
-import { View, Image, ScrollView, FlatList } from "react-native";
-import { Button, Text, StyleService } from "@ui-kitten/components";
+import { View, Text, Image, ScrollView, FlatList } from "react-native";
+import { Button, StyleService } from "@ui-kitten/components";
+import * as firebase from "firebase";
+import "firebase/firestore";
 
 const Home = ({ navigation }) => {
-  const postList = [
-    {
-      question: "What is your favorite dessert?",
-      image: "placeholder",
-      answers: ["Ice cream", "Cake", "Brownies", "Cookies"],
-      id: "1",
-    },
-    {
-      question: "What is your favorite music genre?",
-      image: "placeholder",
-      answers: ["Rap", "Classical", "Country", "Jazz"],
-      id: "2",
-    },
-    {
-      question: "What is your favorite music genre?",
-      image: "placeholder",
-      answers: ["Rap", "Classical", "Country", "Jazz"],
-      id: "3",
-    },
-    {
-      question: "What is your favorite music genre?",
-      image: "placeholder",
-      answers: ["Rap", "Classical", "Country", "Jazz"],
-      id: "4",
-    },
-  ];
+  const dbh = firebase.firestore();
+  const [posts, setPosts] = useState([]);
+  const [ids, setIds] = useState([]);
 
-  return (
-    <View style={styles.contentContainer}>
-      <FlatList
-        // snapToAlignment={'top'}
-        // pagingEnabled={true}
-        // decelerationRate={'fast'}
-        keyExtractor={(item) => item.id}
-        data={postList}
-        renderItem={({ item }) => (
-          <View style={styles.questionContainer}>
-            <Text style={styles.questionHeader}>{item.question}</Text>
-            <Button style={styles.answerBox}>{item.answers[0]}</Button>
-            <Button style={styles.answerBox}>{item.answers[1]}</Button>
-            <Button style={styles.answerBox}>{item.answers[2]}</Button>
-            <Button style={styles.answerBox}>{item.answers[3]}</Button>
-          </View>
-        )}
-      />
-    </View>
-  );
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+    dbh
+      .collection("posts")
+      .get()
+      .then(function (querySnapshot) {
+        setIds(querySnapshot.docs.map((doc) => doc.id));
+        setPosts(querySnapshot.docs.map((doc) => doc.data()));
+      });
+  }, []);
+
+  const updateVote = (index, curPost) => {
+    const ref = dbh.collection("posts").doc(ids[curPost]);
+
+    let results = [...posts[curPost].results];
+    results[index] = results[index] + 1;
+
+    ref.update({
+      results: results,
+    });
+
+    let newPosts = posts;
+    newPosts[curPost].results = results;
+    setPosts(newPosts);
+  };
+
+  const renderList = (item, curPost) => {
+    return (
+      <View style={styles.questionContainer}>
+        <Text style={styles.questionHeader}>{item.title}</Text>
+        <Button
+          onPress={() => {
+            updateVote(0, curPost);
+          }}
+          style={styles.answerBox}
+        >
+          {item.answers[0]}
+        </Button>
+        <Button
+          onPress={() => {
+            updateVote(1, curPost);
+          }}
+          style={styles.answerBox}
+        >
+          {item.answers[1]}
+        </Button>
+        <Button
+          onPress={() => {
+            updateVote(2, curPost);
+          }}
+          style={styles.answerBox}
+        >
+          {item.answers[2]}
+        </Button>
+        <Button
+          onPress={() => {
+            updateVote(3, curPost);
+          }}
+          style={styles.answerBox}
+        >
+          {item.answers[3]}
+        </Button>
+      </View>
+    );
+  };
+
+  if (loading) {
+    return <View></View>;
+  } else {
+    return (
+      <View style={styles.contentContainer}>
+        <FlatList
+          keyExtractor={(item) => item.id}
+          data={posts}
+          renderItem={({ item, index }) => {
+            return renderList(item, index);
+          }}
+        />
+      </View>
+    );
+  }
 };
 
 export default Home;
