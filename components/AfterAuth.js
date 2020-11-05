@@ -8,6 +8,8 @@ import CreatePostStack from "./CreatePostStack"
 import EndorsementStack from "./EndorsementStack";
 import theme from "../theme.json";
 import SettingsStack from "./SettingsStack";
+import { Feather } from '@expo/vector-icons';
+
 const Tabs = createBottomTabNavigator();
 
 const AfterAuth = () => {
@@ -29,14 +31,14 @@ const AfterAuth = () => {
     />
   );
 
-  const myIconPost = (focused, props) => {
-    <MaterialIcons
+  const myIconPost = (focused, props) => (
+    <Feather
       {...props}
-      name="add-circle-outline"
-      size={30}
+      name="plus-square"
+      size={28}
       color={focused ? theme["color-primary-500"] : "black"}
     />
-  }
+  );
 
   const myIconProfile = (focused, props) => (
     <Ionicons

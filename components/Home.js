@@ -1,65 +1,53 @@
 import React, { useEffect, useState } from "react";
-import { useGlobal } from "reactn";
-import {
-  StyleSheet,
-  View,
-  AsyncStorage,
-  KeyboardAvoidingView,
-  FlatList,
-  Image,
-} from "react-native";
-import { default as theme } from "../theme.json";
-import {
-  Button,
-  Text,
-  Divider,
-  Modal,
-  StyleService,
-  Icon,
-  Layout,
-  Spinner,
-} from "@ui-kitten/components";
-import Constants from "expo-constants";
-import { AuthContext } from "./context";
-import { TextStyleProps } from "@ui-kitten/components/devsupport";
-import { ScrollView } from "react-native-gesture-handler";
-import { round } from "react-native-reanimated";
+import { View, Image, ScrollView, FlatList } from "react-native";
+import { Button, Text, StyleService } from "@ui-kitten/components";
 
 const Home = ({ navigation }) => {
-  const [profileState, setProfileState] = useGlobal("profile");
-
-  useEffect(() => {}, []);
-
   const postList = [
     {
       question: "What is your favorite dessert?",
       image: "placeholder",
       answers: ["Ice cream", "Cake", "Brownies", "Cookies"],
+      id: "1",
     },
     {
       question: "What is your favorite music genre?",
       image: "placeholder",
       answers: ["Rap", "Classical", "Country", "Jazz"],
+      id: "2",
+    },
+    {
+      question: "What is your favorite music genre?",
+      image: "placeholder",
+      answers: ["Rap", "Classical", "Country", "Jazz"],
+      id: "3",
+    },
+    {
+      question: "What is your favorite music genre?",
+      image: "placeholder",
+      answers: ["Rap", "Classical", "Country", "Jazz"],
+      id: "4",
     },
   ];
 
   return (
-    <View style={styles.questionContainer}>
-      <Text style={styles.questionHeader}>{postList[0].question}</Text>
-      <View style={styles.imageContainer}>
-        <Image
-          style={styles.image}
-          source={{
-            uri: "http://placekitten.com/g/300/200",
-          }}
-        />
-      </View>
-      <View>
-        <Button style={styles.answerBox}>{postList[0].answers[0]}</Button>
-        <Button style={styles.answerBox}>{postList[0].answers[1]}</Button>
-        <Button style={styles.answerBox}>{postList[0].answers[2]}</Button>
-        <Button style={styles.answerBox}>{postList[0].answers[3]}</Button>
-      </View>
+    <View style={styles.contentContainer}>
+      <FlatList
+        // snapToAlignment={'top'}
+        // pagingEnabled={true}
+        // decelerationRate={'fast'}
+        keyExtractor={(item) => item.id}
+        data={postList}
+        renderItem={({ item }) => (
+          <View style={styles.questionContainer}>
+            <Text style={styles.questionHeader}>{item.question}</Text>
+            <Button style={styles.answerBox}>{item.answers[0]}</Button>
+            <Button style={styles.answerBox}>{item.answers[1]}</Button>
+            <Button style={styles.answerBox}>{item.answers[2]}</Button>
+            <Button style={styles.answerBox}>{item.answers[3]}</Button>
+          </View>
+        )}
+      />
     </View>
   );
 };
@@ -68,12 +56,16 @@ export default Home;
 
 const styles = StyleService.create({
   contentContainer: {
-    flex: 1,
+    // flex: 1,
     //backgroundColor: "background-basic-color-2",
   },
   questionContainer: {
+    flex: 1,
     flexDirection: "column",
     padding: 20,
+    // backgroundColor: 'red',
+    // borderWidth: 10,
+    // borderColor: 'blue'
   },
   questionHeader: {
     textAlign: "center",
