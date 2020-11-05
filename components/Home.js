@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
+<<<<<<< HEAD
 import { View, FlatList } from "react-native";
 import { Button, Text, StyleService } from "@ui-kitten/components";
 import PollChart from './PollChart'
+=======
+import { View, Image, ScrollView, FlatList } from "react-native";
+import { Button, Text, StyleService } from "@ui-kitten/components";
+>>>>>>> e89087c913e2fccc2e50681ddbfa8e7d41d16673
 
 const Home = ({ navigation }) => {
   const postList = [
     {
+<<<<<<< HEAD
       question: 'What is your favorite dessert?',
       image: 'placeholder',
       answers: ['Ice cream', 'Cake', 'Brownies', 'Cookies'],
@@ -32,8 +38,32 @@ const Home = ({ navigation }) => {
       answers: ['Coke', 'Pepsi', 'Sprite', 'None'],
       results: [13, 14, 15, 16],
       id: '4',
+=======
+      question: "What is your favorite dessert?",
+      image: "placeholder",
+      answers: ["Ice cream", "Cake", "Brownies", "Cookies"],
+      id: "1",
     },
-  ]
+    {
+      question: "What is your favorite music genre?",
+      image: "placeholder",
+      answers: ["Rap", "Classical", "Country", "Jazz"],
+      id: "2",
+    },
+    {
+      question: "What is your favorite music genre?",
+      image: "placeholder",
+      answers: ["Rap", "Classical", "Country", "Jazz"],
+      id: "3",
+    },
+    {
+      question: "What is your favorite music genre?",
+      image: "placeholder",
+      answers: ["Rap", "Classical", "Country", "Jazz"],
+      id: "4",
+>>>>>>> e89087c913e2fccc2e50681ddbfa8e7d41d16673
+    },
+  ];
 
   return (
     <View style={styles.contentContainer}>
@@ -68,7 +98,7 @@ const Home = ({ navigation }) => {
         )}
       />
     </View>
-  )
+  );
 };
 
 export default Home;
@@ -80,39 +110,43 @@ const styles = StyleService.create({
   },
   questionContainer: {
     flex: 1,
+<<<<<<< HEAD
     flexDirection: 'column',
     margin: 20,
+=======
+    flexDirection: "column",
+    padding: 20,
+>>>>>>> e89087c913e2fccc2e50681ddbfa8e7d41d16673
     // backgroundColor: 'red',
     // borderWidth: 10,
     // borderColor: 'blue'
   },
   questionHeader: {
-    textAlign: 'center',
-    fontWeight: '700',
+    textAlign: "center",
+    fontWeight: "700",
     fontSize: 30,
-    marginBottom: 10
+    marginBottom: 10,
   },
   answerBox: {
-    textAlign: 'left',
+    textAlign: "left",
     padding: 20,
-    borderColor: 'black',
+    borderColor: "black",
     borderWidth: 1,
     borderRadius: 10,
     marginBottom: 10,
   },
   imageContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    width: '100%',
-    height: '40%',
+    flexDirection: "row",
+    justifyContent: "center",
+    width: "100%",
+    height: "40%",
     marginBottom: 20,
-    backgroundColor: 'red'
+    backgroundColor: "red",
   },
   image: {
     flex: 1,
     width: null,
     height: null,
-    resizeMode: 'cover'
-  }
+    resizeMode: "cover",
+  },
 });
-

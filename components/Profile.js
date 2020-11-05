@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, RefreshControl, View, Image, TouchableOpacity } from "react-native";
+import {
+  ScrollView,
+  RefreshControl,
+  View,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import {
   Button,
   Text,
@@ -12,9 +18,12 @@ import {
 } from "@ui-kitten/components";
 import { AuthContext } from "./context";
 import { TextStyleProps } from "@ui-kitten/components/devsupport";
+import { useGlobal } from "reactn";
 
 const ProfileSettings = (props) => {
   const { signOut } = React.useContext(AuthContext);
+
+  const [profileState, setProfileState] = useGlobal("profile");
 
   const [loading, setLoading] = useState(true);
 
@@ -54,7 +63,7 @@ const ProfileSettings = (props) => {
             <View style={styles.profileContainer}>
               <View style={styles.profileDetailsContainer}>
                 <Text category="h4" style={styles.profileUserName}>
-                  QuickPoll
+                  {profileState.displayName}
                 </Text>
                 <View style={styles.profileLocationContainer}>
                   <View style={styles.profileStats}>
@@ -102,7 +111,7 @@ const ProfileSettings = (props) => {
                       appearance="hint"
                       category="s1"
                     >
-                      John Doe
+                      {profileState.displayName}
                     </Text>
                     <Text>
                       Welcome to QuickPoll! Checkout and respond to my polls!
@@ -124,7 +133,7 @@ const ProfileSettings = (props) => {
             <Button
               onPress={onLogout}
               style={styles.logoutButton}
-            //status="danger"
+              //status="danger"
             >
               Logout
             </Button>
@@ -206,10 +215,10 @@ const styles = StyleService.create({
     marginHorizontal: 16,
     padding: 15,
     borderRadius: 10,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderColor: "A7A7A7",
     borderWidth: 1,
-    alignItems: 'center',
+    alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -221,8 +230,8 @@ const styles = StyleService.create({
     elevation: 4,
   },
   pollButtonText: {
-    color: 'black',
+    color: "black",
     fontSize: 15,
-    fontWeight: '500',
+    fontWeight: "500",
   },
 });
