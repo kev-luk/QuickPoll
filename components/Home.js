@@ -1,60 +1,36 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Image,
-  ScrollView,
-  FlatList
-} from "react-native";
-import {
-  Button,
-  Text,
-  StyleService,
-} from "@ui-kitten/components";
+import { View, FlatList } from "react-native";
+import { Button, Text, StyleService } from "@ui-kitten/components";
+import PollChart from './PollChart'
 
 const Home = ({ navigation }) => {
   const postList = [
     {
       question: 'What is your favorite dessert?',
       image: 'placeholder',
-      answers: [
-        'Ice cream',
-        'Cake',
-        'Brownies',
-        'Cookies'
-      ],
+      answers: ['Ice cream', 'Cake', 'Brownies', 'Cookies'],
+      results: [1, 2, 3, 4],
       id: '1',
     },
     {
       question: 'What is your favorite music genre?',
       image: 'placeholder',
-      answers: [
-        'Rap',
-        'Classical',
-        'Country',
-        'Jazz'
-      ],
+      answers: ['Rap', 'Classical', 'Country', 'Jazz'],
+      results: [5, 6, 7, 8],
       id: '2',
     },
     {
-      question: 'What is your favorite music genre?',
+      question: 'What is your favorite color?',
       image: 'placeholder',
-      answers: [
-        'Rap',
-        'Classical',
-        'Country',
-        'Jazz'
-      ],
+      answers: ['Blue', 'Red', 'Green', 'Yellow'],
+      results: [9, 10, 11, 12],
       id: '3',
     },
     {
-      question: 'What is your favorite music genre?',
+      question: 'Best soda?',
       image: 'placeholder',
-      answers: [
-        'Rap',
-        'Classical',
-        'Country',
-        'Jazz'
-      ],
+      answers: ['Coke', 'Pepsi', 'Sprite', 'None'],
+      results: [13, 14, 15, 16],
       id: '4',
     },
   ]
@@ -62,18 +38,32 @@ const Home = ({ navigation }) => {
   return (
     <View style={styles.contentContainer}>
       <FlatList
-        // snapToAlignment={'top'}
-        // pagingEnabled={true}
-        // decelerationRate={'fast'}
         keyExtractor={(item) => item.id}
         data={postList}
         renderItem={({ item }) => (
           <View style={styles.questionContainer}>
             <Text style={styles.questionHeader}>{item.question}</Text>
-            <Button style={styles.answerBox}>{item.answers[0]}</Button>
-            <Button style={styles.answerBox}>{item.answers[1]}</Button>
-            <Button style={styles.answerBox}>{item.answers[2]}</Button>
-            <Button style={styles.answerBox}>{item.answers[3]}</Button>
+            <Button
+              style={styles.answerBox}
+              onPress={() => navigation.navigate('Poll Chart')}
+            >
+              {item.answers[0]}
+            </Button>
+            <Button
+              style={styles.answerBox}
+              onPress={() => navigation.navigate('Poll Chart')}
+            >{item.answers[1]}
+            </Button>
+            <Button
+              style={styles.answerBox}
+              onPress={() => navigation.navigate('Poll Chart')}
+            >{item.answers[2]}
+            </Button>
+            <Button
+              style={styles.answerBox}
+              onPress={() => navigation.navigate('Poll Chart')}
+            >{item.answers[3]}
+            </Button>
           </View>
         )}
       />
@@ -85,13 +75,13 @@ export default Home;
 
 const styles = StyleService.create({
   contentContainer: {
-    // flex: 1,
+    flex: 1,
     //backgroundColor: "background-basic-color-2",
   },
   questionContainer: {
     flex: 1,
     flexDirection: 'column',
-    padding: 20,
+    margin: 20,
     // backgroundColor: 'red',
     // borderWidth: 10,
     // borderColor: 'blue'

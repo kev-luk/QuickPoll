@@ -23,7 +23,7 @@ const SettingCard = (props) => {
         <Text category="s2">{hint}</Text>
         {children}
       </TouchableOpacity>
-      <Divider style={{ backgroundColor: "grey" }} />
+      <Divider style={{ backgroundColor: "#DDDDDD" }} />
     </React.Fragment>
   );
 };

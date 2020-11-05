@@ -4,11 +4,11 @@ import {
   View,
   SafeAreaView,
   KeyboardAvoidingView,
-  ScrollView
+  ScrollView,
+  TextInput
 } from "react-native";
 import {
   Text,
-  Input,
   Spinner,
   Layout,
   Button
@@ -20,10 +20,8 @@ const MyEndorsements = () => {
       <KeyboardAvoidingView style={styles.container}>
         <Layout level="3" style={styles.container}>
           <View style={styles.body}>
-            <Input
+            <TextInput
               style={styles.formInput}
-              status="control"
-              autoCapitalize="words"
               placeholder="Search for a poll" />
             <ScrollView style={styles.scroll}>
               <Button style={styles.button}>Poll 1</Button>
@@ -56,12 +54,13 @@ const styles = StyleSheet.create({
     //flexDirection: "column-reverse",
   },
   formInput: {
-    marginTop: 5,
-    marginBottom: 10,
-    color: 'black',
+    marginBottom: 15,
+    padding: 10,
+    backgroundColor: '#EEEEEE',
     borderRadius: 10,
-    width: '95%',
-    backgroundColor: '#DDDDDD',
+    borderWidth: 1,
+    borderColor: '#BBBBBB',
+    width: "95%"
   },
   scroll: {
     width: '95%'
