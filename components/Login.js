@@ -8,15 +8,21 @@ import {
   Image,
   SafeAreaView,
   Text,
+  AsyncStorage,
 } from "react-native";
 import { Button, Icon, Input } from "@ui-kitten/components";
 import { default as theme } from "../theme.json";
 import { AuthContext } from "./context";
 import Constants from "expo-constants";
 import * as Facebook from "expo-facebook";
+import { useGlobal } from "reactn";
+import "firebase/firestore";
 
 export default function Login({ navigation }) {
   const { signIn } = React.useContext(AuthContext);
+  const [global, setGlobal] = useGlobal();
+
+  const dbh = firebase.firestore();
 
   const errorIcon = (props) => <Icon name="alert-circle" {...props} />;
 
@@ -48,14 +54,6 @@ export default function Login({ navigation }) {
     </TouchableWithoutFeedback>
   );
 
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user != null) {
-        console.log(user);
-      }
-    });
-  }, []);
-
   const saveAuth = async (token, credential) => {
     signIn(token);
     AsyncStorage.setItem("credential", credential);
@@ -71,7 +69,6 @@ export default function Login({ navigation }) {
     if (type === "success") {
       // Build Firebase credential with the Facebook access token.
       const credential = firebase.auth.FacebookAuthProvider.credential(token);
-      console.log("this is the token", token);
 
       // Sign in with credential from the Facebook user.
       firebase
@@ -82,6 +79,14 @@ export default function Login({ navigation }) {
         });
 
       saveAuth(token, credential);
+
+      setGlobal({
+        profile: firebase.auth().currentUser,
+      });
+
+      dbh.collection("users").doc(firebase.auth().currentUser.uid).set({
+        accountCreated: true,
+      });
     }
   }
 

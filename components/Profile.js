@@ -12,9 +12,12 @@ import {
 } from "@ui-kitten/components";
 import { AuthContext } from "./context";
 import { TextStyleProps } from "@ui-kitten/components/devsupport";
+import { useGlobal } from "reactn";
 
 const ProfileSettings = (props) => {
   const { signOut } = React.useContext(AuthContext);
+
+  const [profileState, setProfileState] = useGlobal("profile");
 
   const [loading, setLoading] = useState(true);
 
@@ -54,7 +57,7 @@ const ProfileSettings = (props) => {
             <View style={styles.profileContainer}>
               <View style={styles.profileDetailsContainer}>
                 <Text category="h4" style={styles.profileUserName}>
-                  QuickPoll
+                  {profileState.displayName}
                 </Text>
                 <View style={styles.profileLocationContainer}>
                   <View style={styles.profileStats}>
@@ -102,7 +105,7 @@ const ProfileSettings = (props) => {
                       appearance="hint"
                       category="s1"
                     >
-                      John Doe
+                      {profileState.displayName}
                     </Text>
                     <Text>
                       Welcome to QuickPoll! Checkout and respond to my polls!
@@ -115,7 +118,7 @@ const ProfileSettings = (props) => {
             <Button
               onPress={onLogout}
               style={styles.logoutButton}
-            //status="danger"
+              //status="danger"
             >
               Logout
             </Button>
@@ -191,5 +194,5 @@ const styles = StyleService.create({
     width: "100%",
     alignSelf: "center",
     margin: 10,
-  }
+  },
 });

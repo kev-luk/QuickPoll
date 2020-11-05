@@ -24,6 +24,7 @@ setGlobal({
 });
 
 const App = () => {
+  console.ignoredYellowBox = ["Setting a timer"];
   const [initialState, setInitialState] = React.useState();
 
   const initialLoginState = {

@@ -26,29 +26,22 @@ import { ScrollView } from "react-native-gesture-handler";
 import { round } from "react-native-reanimated";
 
 const Home = ({ navigation }) => {
+  const [profileState, setProfileState] = useGlobal("profile");
+
+  useEffect(() => {}, []);
 
   const postList = [
     {
-      question: 'What is your favorite dessert?',
-      image: 'placeholder',
-      answers: [
-        'Ice cream',
-        'Cake',
-        'Brownies',
-        'Cookies'
-      ]
+      question: "What is your favorite dessert?",
+      image: "placeholder",
+      answers: ["Ice cream", "Cake", "Brownies", "Cookies"],
     },
     {
-      question: 'What is your favorite music genre?',
-      image: 'placeholder',
-      answers: [
-        'Rap',
-        'Classical',
-        'Country',
-        'Jazz'
-      ]
+      question: "What is your favorite music genre?",
+      image: "placeholder",
+      answers: ["Rap", "Classical", "Country", "Jazz"],
     },
-  ]
+  ];
 
   return (
     <View style={styles.questionContainer}>
@@ -57,7 +50,7 @@ const Home = ({ navigation }) => {
         <Image
           style={styles.image}
           source={{
-            uri: 'http://placekitten.com/g/300/200',
+            uri: "http://placekitten.com/g/300/200",
           }}
         />
       </View>
@@ -68,7 +61,7 @@ const Home = ({ navigation }) => {
         <Button style={styles.answerBox}>{postList[0].answers[3]}</Button>
       </View>
     </View>
-  )
+  );
 };
 
 export default Home;
@@ -79,36 +72,35 @@ const styles = StyleService.create({
     //backgroundColor: "background-basic-color-2",
   },
   questionContainer: {
-    flexDirection: 'column',
+    flexDirection: "column",
     padding: 20,
   },
   questionHeader: {
-    textAlign: 'center',
-    fontWeight: '700',
+    textAlign: "center",
+    fontWeight: "700",
     fontSize: 30,
-    marginBottom: 10
+    marginBottom: 10,
   },
   answerBox: {
-    textAlign: 'left',
+    textAlign: "left",
     padding: 20,
-    borderColor: 'black',
+    borderColor: "black",
     borderWidth: 1,
     borderRadius: 10,
     marginBottom: 10,
   },
   imageContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    width: '100%',
-    height: '40%',
+    flexDirection: "row",
+    justifyContent: "center",
+    width: "100%",
+    height: "40%",
     marginBottom: 20,
-    backgroundColor: 'red'
+    backgroundColor: "red",
   },
   image: {
     flex: 1,
     width: null,
     height: null,
-    resizeMode: 'cover'
-  }
+    resizeMode: "cover",
+  },
 });
-
