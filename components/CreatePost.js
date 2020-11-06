@@ -77,7 +77,7 @@ const CreatePost = () => {
                 const newAnswers = [...answers];
                 newAnswers[1] = answerValue;
                 setAnswers(newAnswers);
-                console.log(answers);
+                //console.log(answers);
               }}
             />
             <TextInput

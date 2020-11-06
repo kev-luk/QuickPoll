@@ -32,7 +32,7 @@ const PollChart = () => {
             }}
             animate={{
               duration: 2000,
-              onLoad: { duration: 1000 },
+              onLoad: { duration: 500 },
             }}
           />
         </VictoryGroup>

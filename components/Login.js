@@ -50,7 +50,6 @@ export default function Login({ navigation }) {
 
   const saveAuth = async (token, credential) => {
     signIn(token);
-    AsyncStorage.setItem("credential", credential);
   };
 
   async function loginWithFacebook() {
@@ -72,14 +71,15 @@ export default function Login({ navigation }) {
           // Handle Errors here.
         });
 
-      saveAuth(token, credential);
-
-      setGlobal({
-        profile: firebase.auth().currentUser,
-      });
-
-      dbh.collection("users").doc(firebase.auth().currentUser.uid).set({
-        accountCreated: true,
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          setGlobal({
+            profile: firebase.auth().currentUser,
+          });
+          saveAuth(token, credential);
+        } else {
+          // No user is signed in.
+        }
       });
     }
   }

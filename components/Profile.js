@@ -16,6 +16,7 @@ import {
   Layout,
   Spinner,
 } from "@ui-kitten/components";
+import * as firebase from "firebase";
 import { AuthContext } from "./context";
 import { TextStyleProps } from "@ui-kitten/components/devsupport";
 import { useGlobal } from "reactn";
@@ -35,6 +36,15 @@ const ProfileSettings = (props) => {
   }, []);
 
   const onLogout = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(function () {
+        console.log("signed out");
+      })
+      .catch(function (error) {
+        console.log("error signing out");
+      });
     signOut();
   };
 
@@ -66,7 +76,7 @@ const ProfileSettings = (props) => {
                   {profileState.displayName}
                 </Text>
                 <View style={styles.profileLocationContainer}>
-                  <View style={styles.profileStats}>
+                  {/* <View style={styles.profileStats}>
                     <View style={styles.statBlock}>
                       <Text
                         style={{
@@ -75,7 +85,7 @@ const ProfileSettings = (props) => {
                           textAlign: "center",
                         }}
                       >
-                        10
+                        0
                       </Text>
                       <Text>Followers</Text>
                     </View>
@@ -87,7 +97,7 @@ const ProfileSettings = (props) => {
                           textAlign: "center",
                         }}
                       >
-                        8
+                        0
                       </Text>
                       <Text>Polls</Text>
                     </View>
@@ -99,12 +109,11 @@ const ProfileSettings = (props) => {
                           textAlign: "center",
                         }}
                       >
-                        2020
+                        0
                       </Text>
                       <Text>Responses</Text>
                     </View>
-                  </View>
-                  <Button style={styles.editProfileButton}>Edit Profile</Button>
+                  </View> */}
                   <View style={styles.profileInformation}>
                     <Text
                       style={styles.profileLocation}
@@ -113,15 +122,13 @@ const ProfileSettings = (props) => {
                     >
                       {profileState.displayName}
                     </Text>
-                    <Text>
-                      Welcome to QuickPoll! Checkout and respond to my polls!
-                    </Text>
+                    {/* <Text>My polls:</Text> */}
                   </View>
                 </View>
               </View>
             </View>
             <Divider style={styles.profileSocialDivider} />
-            <TouchableOpacity style={styles.pollButton}>
+            {/* <TouchableOpacity style={styles.pollButton}>
               <Text style={styles.pollButtonText}>Which movie is better?</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.pollButton}>
@@ -129,7 +136,7 @@ const ProfileSettings = (props) => {
             </TouchableOpacity>
             <TouchableOpacity style={styles.pollButton}>
               <Text style={styles.pollButtonText}>Best artist of 2020?</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <Button
               onPress={onLogout}
               style={styles.logoutButton}

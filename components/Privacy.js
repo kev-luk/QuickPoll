@@ -9,8 +9,8 @@ const Privacy = () => {
         <View style={styles.header}>
           <Text style={styles.privacyHeader}>PRIVACY POLICY</Text>
           <Text style={{ marginHorizontal: 15 }} category="p1">
-            Privacy Policy CometShare built the QuickPoll app as a Commercial
-            app. This SERVICE is provided by CometShare and is intended for use
+            Privacy Policy Quickpoll built the QuickPoll app as a Commercial
+            app. This SERVICE is provided by Quickpoll and is intended for use
             as is. This page is used to inform visitors regarding our policies
             with the collection, use, and disclosure of Personal Information if
             anyone decided to use our Service. If you choose to use our Service,
@@ -106,7 +106,7 @@ const Privacy = () => {
           <Text style={styles.sub}> Contact Us </Text>
           <Text style={{ marginHorizontal: 15 }} category="p1">
             If you have any questions or suggestions about our Privacy Policy,
-            do not hesitate to contact us at support@cometshare.com.
+            do not hesitate to contact us at support@Quickpoll.com.
           </Text>
         </View>
       </ScrollView>

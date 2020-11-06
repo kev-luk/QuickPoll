@@ -20,6 +20,7 @@ import { AppLoading } from "expo";
 const Stack = createStackNavigator();
 
 setGlobal({
+  uid: "",
   profile: {},
 });
 
