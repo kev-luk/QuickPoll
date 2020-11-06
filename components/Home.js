@@ -100,13 +100,13 @@ export default Home;
 
 const styles = StyleService.create({
   contentContainer: {
-    // flex: 1,
+    flex: 1,
     //backgroundColor: "background-basic-color-2",
   },
   questionContainer: {
     flex: 1,
     flexDirection: "column",
-    padding: 20,
+    margin: 20,
     // backgroundColor: 'red',
     // borderWidth: 10,
     // borderColor: 'blue'

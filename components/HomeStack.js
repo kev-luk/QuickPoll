@@ -2,6 +2,7 @@ import React from "react";
 import Home from "./Home";
 import { createStackNavigator } from "@react-navigation/stack";
 import { default as theme } from "../theme.json";
+import PollChart from './PollChart'
 
 const Stack = createStackNavigator();
 
@@ -21,7 +22,10 @@ const HomeStack = () => {
         options={{ headerShown: true }}
         component={Home}
       />
-      {/* <Stack.Screen name="Create Endorsement" component={CreateEndorsement} /> */}
+      <Stack.Screen
+        name="Poll Chart"
+        component={PollChart}
+      />
     </Stack.Navigator>
   );
 };
