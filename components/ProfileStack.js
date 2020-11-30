@@ -1,5 +1,6 @@
 import React from "react";
 import Profile from "./Profile";
+import EditProfile from "./EditProfile";
 import { createStackNavigator } from "@react-navigation/stack";
 import { default as theme } from "../theme.json";
 
@@ -17,6 +18,7 @@ const ProfileStack = () => {
       }}
     >
       <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="Edit Profile" component={EditProfile} />
     </Stack.Navigator>
   );
 };

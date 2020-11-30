@@ -18,7 +18,7 @@
     },
     "name": "QuickPoll",
     "slug": "QuickPoll",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "scheme": "myapp",
     "icon": "./assets/poll.png",
@@ -41,7 +41,8 @@
     },
     "android": {
       "package": "com.ramkarri7.QuickPoll",
-      "versionCode": 1,
+      "permissions": [],
+      "versionCode": 2,
       "playStoreUrl": "https://play.google.com/store/apps/details?id=com.ramkarri7.QuickPoll",
       "config": {
       }

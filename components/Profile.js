@@ -21,7 +21,7 @@ import { AuthContext } from "./context";
 import { TextStyleProps } from "@ui-kitten/components/devsupport";
 import { useGlobal } from "reactn";
 
-const ProfileSettings = (props) => {
+const ProfileSettings = ({ navigation }) => {
   const { signOut } = React.useContext(AuthContext);
 
   const [profileState, setProfileState] = useGlobal("profile");
@@ -128,6 +128,15 @@ const ProfileSettings = (props) => {
               </View>
             </View>
             <Divider style={styles.profileSocialDivider} />
+            <Button
+              onPress={() => {
+                navigation.push("Edit Profile");
+              }}
+              style={styles.logoutButton}
+              //status="danger"
+            >
+              Edit Profile
+            </Button>
             {/* <TouchableOpacity style={styles.pollButton}>
               <Text style={styles.pollButtonText}>Which movie is better?</Text>
             </TouchableOpacity>
