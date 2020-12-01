@@ -114,6 +114,11 @@ const MyEndorsements = () => {
                 value={query}
                 onChangeText={handleSearch}
               />
+              <Text
+                style={styles.trendHeader}
+              >
+                Trending Polls
+              </Text>
               <FlatList
                 extraData={refresh}
                 keyExtractor={(item) => item.id}
@@ -217,4 +222,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     width: "95%",
   },
+  trendHeader: {
+    fontSize: 30,
+    fontWeight: "600",
+    marginBottom: 15,
+  }
 });

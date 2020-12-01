@@ -1,36 +1,75 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Alert } from "react-native";
 import { Text, Layout, Input, Button } from "@ui-kitten/components";
 import { ScrollView } from "react-native-gesture-handler";
+import * as firebase from "firebase";
+import "firebase/firestore";
 
 const EditProfile = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [bio, setBio] = useState("");
+
+  const dbh = firebase.firestore();
+
+  const updateProfile = () => {
+    dbh.collection('users').add({
+      email: email,
+      name: name,
+      bio: bio,
+    })
+
+    setEmail("")
+    setName("")
+    setBio("")
+    Alert.alert("Profile Updated!")
+  }
+
   return (
     <Layout style={{ flex: 1 }} level="1">
       <ScrollView>
         <View style={styles.header}>
           <Input
             style={[styles.profileSetting, styles.section]}
-            value={email}
-            label="Email"
-            caption="Email"
+            value={name}
+            label="Name"
+            onChangeText={(text) => {
+              setName(text);
+            }}
           />
           <Input
             style={[styles.profileSetting, styles.section]}
-            value={name}
-            label="Name"
-            caption="Name"
+            value={bio}
+            label="Bio"
+            onChangeText={(text) => {
+              setBio(text);
+            }}
           />
-          <Button style={styles.doneButton} status="basic" status="control">
-            Edit
+          <Input
+            style={[styles.profileSetting, styles.section]}
+            value={email}
+            label="Email"
+            onChangeText={(text) => {
+              setEmail(text);
+            }}
+          />
+          <Button
+            style={styles.doneButton}
+            status="info"
+            onPress={() => {
+              updateProfile()
+              navigation.pop()
+            }
+            }
+          >
+            Update Profile
           </Button>
           <Button
             style={styles.doneButton}
             status="danger"
             onPress={() => navigation.pop()}
           >
-            Go Back
+            Cancel
           </Button>
         </View>
       </ScrollView>
@@ -72,7 +111,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   section: {
-    marginTop: 24,
+    marginTop: 15,
   },
   doneButton: {
     marginHorizontal: 24,

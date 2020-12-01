@@ -5,6 +5,7 @@ import {
   View,
   Image,
   TouchableOpacity,
+  FlatList
 } from "react-native";
 import {
   Button,
@@ -20,13 +21,18 @@ import * as firebase from "firebase";
 import { AuthContext } from "./context";
 import { TextStyleProps } from "@ui-kitten/components/devsupport";
 import { useGlobal } from "reactn";
+import "firebase/firestore";
 
 const ProfileSettings = ({ navigation }) => {
+  const dbh = firebase.firestore();
+
   const { signOut } = React.useContext(AuthContext);
 
   const [profileState, setProfileState] = useGlobal("profile");
 
   const [loading, setLoading] = useState(true);
+
+  const [posts, setPosts] = useState([]);
 
   const [refreshing, setRefreshing] = React.useState(false);
   const onRefresh = React.useCallback(() => {
@@ -34,6 +40,19 @@ const ProfileSettings = ({ navigation }) => {
 
     recieveUser().then(() => setRefreshing(false));
   }, []);
+
+  // get polls that have same uuid
+  dbh.collection("posts").where("author", "==", firebase.auth().currentUser.uid)
+    .get()
+    .then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+      });
+    })
+    .catch(function (error) {
+      console.log("Error getting documents: ", error);
+    });
 
   const onLogout = () => {
     firebase
@@ -72,48 +91,10 @@ const ProfileSettings = ({ navigation }) => {
           <Layout style={styles.header} level="1">
             <View style={styles.profileContainer}>
               <View style={styles.profileDetailsContainer}>
-                <Text category="h4" style={styles.profileUserName}>
+                <Text category="h2" style={styles.profileUserName}>
                   {profileState.displayName}
                 </Text>
                 <View style={styles.profileLocationContainer}>
-                  {/* <View style={styles.profileStats}>
-                    <View style={styles.statBlock}>
-                      <Text
-                        style={{
-                          fontSize: 20,
-                          fontWeight: "700",
-                          textAlign: "center",
-                        }}
-                      >
-                        0
-                      </Text>
-                      <Text>Followers</Text>
-                    </View>
-                    <View style={styles.statBlock}>
-                      <Text
-                        style={{
-                          fontSize: 20,
-                          fontWeight: "700",
-                          textAlign: "center",
-                        }}
-                      >
-                        0
-                      </Text>
-                      <Text>Polls</Text>
-                    </View>
-                    <View style={styles.statBlock}>
-                      <Text
-                        style={{
-                          fontSize: 20,
-                          fontWeight: "700",
-                          textAlign: "center",
-                        }}
-                      >
-                        0
-                      </Text>
-                      <Text>Responses</Text>
-                    </View>
-                  </View> */}
                   <View style={styles.profileInformation}>
                     <Text
                       style={styles.profileLocation}
@@ -122,7 +103,14 @@ const ProfileSettings = ({ navigation }) => {
                     >
                       {profileState.displayName}
                     </Text>
-                    {/* <Text>My polls:</Text> */}
+                    <Text>My Polls</Text>
+                    <FlatList
+                      keyExtractor={(item) => item.id}
+                      data={posts}
+                      renderItem={({ item, index }) => {
+                        return renderList(item, index);
+                      }}
+                    />
                   </View>
                 </View>
               </View>
@@ -132,8 +120,9 @@ const ProfileSettings = ({ navigation }) => {
               onPress={() => {
                 navigation.push("Edit Profile");
               }}
+              status="info"
               style={styles.logoutButton}
-              //status="danger"
+            //status="danger"
             >
               Edit Profile
             </Button>
@@ -148,8 +137,9 @@ const ProfileSettings = ({ navigation }) => {
             </TouchableOpacity> */}
             <Button
               onPress={onLogout}
+              status="danger"
               style={styles.logoutButton}
-              //status="danger"
+            //status="danger"
             >
               Logout
             </Button>
@@ -197,6 +187,7 @@ const styles = StyleService.create({
   },
   profileUserName: {
     textAlign: "center",
+    marginBottom: 5
   },
   profileStats: {
     flex: "space-between",

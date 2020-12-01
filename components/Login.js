@@ -89,7 +89,7 @@ export default function Login({ navigation }) {
       <KeyboardAvoidingView style={styles.container}>
         <Text
           style={{
-            fontSize: 50,
+            fontSize: 70,
             color: theme["color-primary-500"],
             alignSelf: "center",
           }}
@@ -97,7 +97,7 @@ export default function Login({ navigation }) {
           QuickPoll
         </Text>
         <Image
-          style={{ width: 300, height: 300, alignSelf: "center" }}
+          style={{ width: 275, height: 275, alignSelf: "center" }}
           source={require("../assets/poll.png")}
         />
         <Button

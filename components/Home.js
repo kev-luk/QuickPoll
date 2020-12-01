@@ -101,7 +101,7 @@ const Home = ({ navigation }) => {
                 data={data.pollResults}
                 style={{
                   data: {
-                    fill: theme["color-primary-500"],
+                    fill: '#0084ff',
                   },
                 }}
                 animate={{

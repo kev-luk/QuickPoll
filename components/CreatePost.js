@@ -35,6 +35,7 @@ const CreatePost = () => {
         answers: answers,
         results: [0, 0, 0, 0],
         title: title,
+        author: firebase.auth().currentUser.uid
       });
 
       setTitle("");
@@ -48,6 +49,11 @@ const CreatePost = () => {
       <ScrollView>
         <KeyboardAvoidingView style={styles.container}>
           <View style={styles.formContainer}>
+            <Text
+              style={styles.createHeader}
+            >
+              Create Post
+            </Text>
             <TextInput
               style={styles.formInput}
               autoCapitalize="words"
@@ -154,4 +160,10 @@ const styles = StyleSheet.create({
     color: "#06ba00",
     marginTop: 10,
   },
+  createHeader: {
+    fontSize: 30,
+    fontWeight: "900",
+    marginVertical: 15,
+    textAlign: "center"
+  }
 });
