@@ -17,11 +17,18 @@ import {
   Layout,
   Spinner,
 } from "@ui-kitten/components";
+import {
+  VictoryChart,
+  VictoryGroup,
+  VictoryBar,
+  VictoryLabel,
+} from "victory-native";
 import * as firebase from "firebase";
 import { AuthContext } from "./context";
 import { TextStyleProps } from "@ui-kitten/components/devsupport";
 import { useGlobal } from "reactn";
 import "firebase/firestore";
+import { default as theme } from "../theme.json";
 
 const ProfileSettings = ({ navigation }) => {
   const dbh = firebase.firestore();
@@ -29,30 +36,63 @@ const ProfileSettings = ({ navigation }) => {
   const { signOut } = React.useContext(AuthContext);
 
   const [profileState, setProfileState] = useGlobal("profile");
-
   const [loading, setLoading] = useState(true);
-
   const [posts, setPosts] = useState([]);
-
+  const [modalVisible, setModalVisible] = useState(false);
+  const [poll, setPoll] = useState({});
+  const [title, settitle] = useState("");
   const [refreshing, setRefreshing] = React.useState(false);
+
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
 
     recieveUser().then(() => setRefreshing(false));
   }, []);
 
+  const changePoll = (item) => {
+    const data = {
+      pollResults: [
+        { x: item.answers[0], y: item.results[0] },
+        { x: item.answers[1], y: item.results[1] },
+        { x: item.answers[2], y: item.results[2] },
+        { x: item.answers[3], y: item.results[3] },
+      ],
+    };
+
+    setPoll(data);
+  };
+
   // get polls that have same uuid
   dbh.collection("posts").where("author", "==", firebase.auth().currentUser.uid)
     .get()
     .then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
-        // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
+        const recievedPosts = querySnapshot.docs.map((doc) => doc.data());
+        setPosts(recievedPosts);
       });
     })
     .catch(function (error) {
       console.log("Error getting documents: ", error);
     });
+
+  const renderList = (item, curPost) => {
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          changePoll(item);
+          settitle(item.title);
+          setModalVisible(true);
+        }}
+        style={styles.pollButton}
+      >
+        <Text
+          style={styles.pollButtonText}
+        >
+          {item.title}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
 
   const onLogout = () => {
     firebase
@@ -103,7 +143,11 @@ const ProfileSettings = ({ navigation }) => {
                     >
                       {profileState.displayName}
                     </Text>
-                    <Text>My Polls</Text>
+                    <Text
+                      style={styles.pollsHeader}
+                    >
+                      My Polls
+                    </Text>
                     <FlatList
                       keyExtractor={(item) => item.id}
                       data={posts}
@@ -241,4 +285,26 @@ const styles = StyleService.create({
     fontSize: 15,
     fontWeight: "500",
   },
+  tab: {
+    position: "absolute",
+    alignSelf: "center",
+    justifyContent: "space-evenly",
+    height: "70%",
+    width: "100%",
+    backgroundColor: "white",
+    marginVertical: "25%",
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: theme["color-primary-transparent-500"],
+  },
+  questionHeader: {
+    textAlign: "center",
+    fontWeight: "700",
+    fontSize: 30,
+    marginBottom: 10,
+  },
+  pollsHeader: {
+    textAlign: "center",
+    fontSize: 30
+  }
 });
