@@ -71,6 +71,11 @@ export default function Login({ navigation }) {
           // Handle Errors here.
         });
 
+      dbh.collection("users").doc(firebase.auth().currentUser.uid).set({
+        name: "",
+        bio: ""
+      })
+
       firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
           setGlobal({

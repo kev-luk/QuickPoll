@@ -16,6 +16,7 @@ import {
   Icon,
   Layout,
   Spinner,
+  Avatar
 } from "@ui-kitten/components";
 import {
   VictoryChart,
@@ -41,10 +42,14 @@ const ProfileSettings = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [poll, setPoll] = useState({});
   const [title, settitle] = useState("");
+  const [name, setName] = useState("")
+  const [bio, setBio] = useState("")
   const [refreshing, setRefreshing] = React.useState(false);
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
+    getProfileInfo()
+    getData()
     recieveUser().then(() => setRefreshing(false));
   }, []);
 
@@ -61,7 +66,23 @@ const ProfileSettings = ({ navigation }) => {
     setPoll(data);
   };
 
-  const deletePoll = () => {};
+  const getProfileInfo = () => {
+    dbh
+      .collection("users")
+      .doc(firebase.auth().currentUser.uid)
+      .get()
+      .then(function (doc) {
+        if (doc.exists) {
+          setName(doc.data().name)
+          setBio(doc.data().bio)
+        } else {
+          console.log("No information")
+        }
+      })
+      .catch(function (error) {
+        console.log("Error getting document: ", error);
+      });
+  }
 
   // get polls that have same uuid
   const getData = () => {
@@ -72,7 +93,6 @@ const ProfileSettings = ({ navigation }) => {
       .then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
           const recievedPosts = querySnapshot.docs.map((doc) => doc.data());
-          console.log(recievedPosts);
           setPosts(recievedPosts);
         });
       })
@@ -111,6 +131,7 @@ const ProfileSettings = ({ navigation }) => {
 
   useEffect(() => {
     setTimeout(() => {
+      getProfileInfo()
       getData();
       setLoading(false);
     }, 500);
@@ -134,18 +155,27 @@ const ProfileSettings = ({ navigation }) => {
           <Layout style={styles.header} level="1">
             <View style={styles.profileContainer}>
               <View style={styles.profileDetailsContainer}>
-                <Text category="h2" style={styles.profileUserName}>
+                <Text category="h3" style={styles.profileUserName}>
                   {profileState.displayName}
                 </Text>
+                {/* <Avatar
+                  source={require('../assets/favicon.png')}
+                  size="large"
+                /> */}
                 <View style={styles.profileLocationContainer}>
                   <View style={styles.profileInformation}>
                     <Text
                       style={styles.profileLocation}
                       appearance="hint"
-                      category="s1"
                     >
-                      {profileState.displayName}
+                      {name}
                     </Text>
+                    <Text
+                      style={styles.bioContainer}
+                    >
+                      {bio}
+                    </Text>
+                    <Divider style={styles.profileSocialDivider} />
                     <Text style={styles.pollsHeader}>My Polls</Text>
                     <FlatList
                       keyExtractor={(item) => item.id}
@@ -192,7 +222,7 @@ const ProfileSettings = ({ navigation }) => {
                     data={poll.pollResults}
                     style={{
                       data: {
-                        fill: theme["color-primary-500"],
+                        fill: '#0084ff',
                       },
                     }}
                     animate={{
@@ -206,16 +236,7 @@ const ProfileSettings = ({ navigation }) => {
                 onPress={() => {
                   setModalVisible(false);
                 }}
-                status="danger"
-                style={{ width: "75%", alignSelf: "center" }}
-              >
-                Delete
-              </Button>
-              <Button
-                onPress={() => {
-                  setModalVisible(false);
-                }}
-                style={{ width: "75%", alignSelf: "center" }}
+                style={{ width: "75%", alignSelf: "center", marginBottom: 15 }}
               >
                 Close
               </Button>
@@ -251,11 +272,16 @@ const styles = StyleService.create({
   },
   profileLocationContainer: {
     flexDirection: "column",
-    alignItems: "center",
+    justifyContent: "center",
   },
   profileLocation: {
-    marginBottom: 5,
+    marginBottom: 10,
     textAlign: "center",
+  },
+  bioContainer: {
+    marginBottom: 10,
+    textAlign: "center",
+    fontSize: 15
   },
   profileSocialsContainer: {
     flexDirection: "row",
@@ -288,7 +314,7 @@ const styles = StyleService.create({
     width: "75%",
     alignSelf: "center",
     marginTop: "5%",
-    margin: 16,
+    margin: 5,
   },
   editProfileButton: {
     width: "100%",
@@ -296,24 +322,22 @@ const styles = StyleService.create({
     margin: 10,
   },
   pollButton: {
-    width: 100,
     marginVertical: 10,
     marginHorizontal: 16,
     padding: 15,
     borderRadius: 10,
     backgroundColor: "white",
-    borderColor: "A7A7A7",
+    borderColor: "#C7C7C7",
     borderWidth: 1,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 3,
     },
-    shadowOpacity: 0.23,
-    shadowRadius: 2.62,
-
-    elevation: 4,
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+    elevation: 6,
   },
   pollButtonText: {
     color: "black",
@@ -339,6 +363,6 @@ const styles = StyleService.create({
   },
   pollsHeader: {
     textAlign: "center",
-    fontSize: 30,
+    fontSize: 25,
   },
 });

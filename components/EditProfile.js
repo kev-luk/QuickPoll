@@ -6,20 +6,17 @@ import * as firebase from "firebase";
 import "firebase/firestore";
 
 const EditProfile = ({ navigation }) => {
-  const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [bio, setBio] = useState("");
 
   const dbh = firebase.firestore();
 
   const updateProfile = () => {
-    dbh.collection('users').add({
-      email: email,
+    dbh.collection('users').doc(firebase.auth().currentUser.uid).set({
       name: name,
       bio: bio,
     })
 
-    setEmail("")
     setName("")
     setBio("")
     Alert.alert("Profile Updated!")
@@ -43,14 +40,6 @@ const EditProfile = ({ navigation }) => {
             label="Bio"
             onChangeText={(text) => {
               setBio(text);
-            }}
-          />
-          <Input
-            style={[styles.profileSetting, styles.section]}
-            value={email}
-            label="Email"
-            onChangeText={(text) => {
-              setEmail(text);
             }}
           />
           <Button
