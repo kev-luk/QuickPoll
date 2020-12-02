@@ -5,7 +5,7 @@ import {
   View,
   Image,
   TouchableOpacity,
-  FlatList
+  FlatList,
 } from "react-native";
 import {
   Button,
@@ -61,25 +61,25 @@ const ProfileSettings = ({ navigation }) => {
     setPoll(data);
   };
 
-  const deletePoll = () => {
-
-  }
+  const deletePoll = () => {};
 
   // get polls that have same uuid
   const getData = () => {
-    dbh.collection("posts").where("author", "==", firebase.auth().currentUser.uid)
+    dbh
+      .collection("posts")
+      .where("author", "==", firebase.auth().currentUser.uid)
       .get()
       .then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
           const recievedPosts = querySnapshot.docs.map((doc) => doc.data());
-          console.log(recievedPosts)
+          console.log(recievedPosts);
           setPosts(recievedPosts);
         });
       })
       .catch(function (error) {
         console.log("Error getting documents: ", error);
       });
-  }
+  };
 
   const renderList = (item, curPost) => {
     return (
@@ -91,11 +91,7 @@ const ProfileSettings = ({ navigation }) => {
         }}
         style={styles.pollButton}
       >
-        <Text
-          style={styles.pollButtonText}
-        >
-          {item.title}
-        </Text>
+        <Text style={styles.pollButtonText}>{item.title}</Text>
       </TouchableOpacity>
     );
   };
@@ -115,7 +111,7 @@ const ProfileSettings = ({ navigation }) => {
 
   useEffect(() => {
     setTimeout(() => {
-      getData()
+      getData();
       setLoading(false);
     }, 500);
   }, []);
@@ -150,11 +146,7 @@ const ProfileSettings = ({ navigation }) => {
                     >
                       {profileState.displayName}
                     </Text>
-                    <Text
-                      style={styles.pollsHeader}
-                    >
-                      My Polls
-                    </Text>
+                    <Text style={styles.pollsHeader}>My Polls</Text>
                     <FlatList
                       keyExtractor={(item) => item.id}
                       data={posts}
@@ -163,51 +155,6 @@ const ProfileSettings = ({ navigation }) => {
                       }}
                     />
                   </View>
-                  <Modal
-                    visible={modalVisible}
-                    animationType="slide"
-                    onRequestClose={() => {
-                      setModalVisible(false);
-                    }}
-                    transparent={true}
-                  >
-                    <View style={styles.tab}>
-                      <Text style={styles.questionHeader}>{title}</Text>
-                      <VictoryChart domainPadding={{ x: 25 }}>
-                        <VictoryGroup>
-                          <VictoryBar
-                            data={poll.pollResults}
-                            style={{
-                              data: {
-                                fill: theme["color-primary-500"],
-                              },
-                            }}
-                            animate={{
-                              duration: 2000,
-                              onLoad: { duration: 500 },
-                            }}
-                          />
-                        </VictoryGroup>
-                      </VictoryChart>
-                      <Button
-                        onPress={() => {
-                          setModalVisible(false);
-                        }}
-                        status="danger"
-                        style={{ width: "75%", alignSelf: "center" }}
-                      >
-                        Delete
-                      </Button>
-                      <Button
-                        onPress={() => {
-                          setModalVisible(false);
-                        }}
-                        style={{ width: "75%", alignSelf: "center" }}
-                      >
-                        Close
-                      </Button>
-                    </View>
-                  </Modal>
                 </View>
               </View>
             </View>
@@ -229,6 +176,51 @@ const ProfileSettings = ({ navigation }) => {
               Logout
             </Button>
           </Layout>
+          <Modal
+            visible={modalVisible}
+            animationType="slide"
+            onRequestClose={() => {
+              setModalVisible(false);
+            }}
+            transparent={true}
+          >
+            <View style={styles.tab}>
+              <Text style={styles.questionHeader}>{title}</Text>
+              <VictoryChart domainPadding={{ x: 25 }}>
+                <VictoryGroup>
+                  <VictoryBar
+                    data={poll.pollResults}
+                    style={{
+                      data: {
+                        fill: theme["color-primary-500"],
+                      },
+                    }}
+                    animate={{
+                      duration: 2000,
+                      onLoad: { duration: 500 },
+                    }}
+                  />
+                </VictoryGroup>
+              </VictoryChart>
+              <Button
+                onPress={() => {
+                  setModalVisible(false);
+                }}
+                status="danger"
+                style={{ width: "75%", alignSelf: "center" }}
+              >
+                Delete
+              </Button>
+              <Button
+                onPress={() => {
+                  setModalVisible(false);
+                }}
+                style={{ width: "75%", alignSelf: "center" }}
+              >
+                Close
+              </Button>
+            </View>
+          </Modal>
         </ScrollView>
       </Layout>
     );
@@ -263,7 +255,7 @@ const styles = StyleService.create({
   },
   profileLocation: {
     marginBottom: 5,
-    textAlign: "center"
+    textAlign: "center",
   },
   profileSocialsContainer: {
     flexDirection: "row",
@@ -273,7 +265,7 @@ const styles = StyleService.create({
   },
   profileUserName: {
     textAlign: "center",
-    marginBottom: 5
+    marginBottom: 5,
   },
   profileStats: {
     flex: "space-between",
@@ -329,7 +321,6 @@ const styles = StyleService.create({
     fontWeight: "500",
   },
   tab: {
-    position: "absolute",
     alignSelf: "center",
     justifyContent: "space-evenly",
     height: "70%",
@@ -348,6 +339,6 @@ const styles = StyleService.create({
   },
   pollsHeader: {
     textAlign: "center",
-    fontSize: 30
-  }
+    fontSize: 30,
+  },
 });
