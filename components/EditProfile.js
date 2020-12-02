@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Alert } from "react-native";
+import { StyleSheet, View, Alert, LogBox } from "react-native";
 import { Text, Layout, Input, Button } from "@ui-kitten/components";
 import { ScrollView } from "react-native-gesture-handler";
 import * as firebase from "firebase";
@@ -7,6 +7,7 @@ import "firebase/firestore";
 
 const EditProfile = ({ navigation }) => {
   const [name, setName] = useState("");
+  const [location, setLocation] = useState("");
   const [bio, setBio] = useState("");
 
   const dbh = firebase.firestore();
@@ -14,6 +15,7 @@ const EditProfile = ({ navigation }) => {
   const updateProfile = () => {
     dbh.collection('users').doc(firebase.auth().currentUser.uid).set({
       name: name,
+      location: location,
       bio: bio,
     })
 
@@ -30,6 +32,14 @@ const EditProfile = ({ navigation }) => {
             label="Name"
             onChangeText={(text) => {
               setName(text);
+            }}
+          />
+          <Input
+            style={[styles.profileSetting, styles.section]}
+            value={location}
+            label="Location"
+            onChangeText={(text) => {
+              setLocation(text);
             }}
           />
           <Input

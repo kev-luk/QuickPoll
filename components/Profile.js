@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
+  LogBox
 } from "react-native";
 import {
   Button,
@@ -43,6 +44,7 @@ const ProfileSettings = ({ navigation }) => {
   const [poll, setPoll] = useState({});
   const [title, settitle] = useState("");
   const [name, setName] = useState("")
+  const [location, setLocation] = useState("");
   const [bio, setBio] = useState("")
   const [refreshing, setRefreshing] = React.useState(false);
 
@@ -50,7 +52,7 @@ const ProfileSettings = ({ navigation }) => {
     setRefreshing(true);
     getProfileInfo()
     getData()
-    recieveUser().then(() => setRefreshing(false));
+    setRefreshing(false);
   }, []);
 
   const changePoll = (item) => {
@@ -74,6 +76,7 @@ const ProfileSettings = ({ navigation }) => {
       .then(function (doc) {
         if (doc.exists) {
           setName(doc.data().name)
+          setLocation(doc.data().location)
           setBio(doc.data().bio)
         } else {
           console.log("No information")
@@ -156,25 +159,42 @@ const ProfileSettings = ({ navigation }) => {
             <View style={styles.profileContainer}>
               <View style={styles.profileDetailsContainer}>
                 <Text category="h3" style={styles.profileUserName}>
-                  {profileState.displayName}
+                  {name}
                 </Text>
-                {/* <Avatar
-                  source={require('../assets/favicon.png')}
-                  size="large"
-                /> */}
+                <View style={styles.profilePicContainer}>
+                  <Avatar
+                    source={{
+                      uri: firebase.auth().currentUser.photoURL
+                    }}
+                    size="large"
+                    style={{
+                      borderColor: theme["color-primary-transparent-600"],
+                      borderWidth: 2
+                    }}
+                  />
+                </View>
                 <View style={styles.profileLocationContainer}>
                   <View style={styles.profileInformation}>
                     <Text
                       style={styles.profileLocation}
                       appearance="hint"
                     >
-                      {name}
+                      {location}
                     </Text>
                     <Text
                       style={styles.bioContainer}
                     >
                       {bio}
                     </Text>
+                    <Button
+                      onPress={() => {
+                        navigation.push("Edit Profile");
+                      }}
+                      status="info"
+                      style={styles.editProfileButton}
+                    >
+                      Edit Profile
+            </Button>
                     <Divider style={styles.profileSocialDivider} />
                     <Text style={styles.pollsHeader}>My Polls</Text>
                     <FlatList
@@ -189,15 +209,6 @@ const ProfileSettings = ({ navigation }) => {
               </View>
             </View>
             <Divider style={styles.profileSocialDivider} />
-            <Button
-              onPress={() => {
-                navigation.push("Edit Profile");
-              }}
-              status="info"
-              style={styles.logoutButton}
-            >
-              Edit Profile
-            </Button>
             <Button
               onPress={onLogout}
               status="danger"
@@ -275,11 +286,10 @@ const styles = StyleService.create({
     justifyContent: "center",
   },
   profileLocation: {
-    marginBottom: 10,
+    marginVertical: 10,
     textAlign: "center",
   },
   bioContainer: {
-    marginBottom: 10,
     textAlign: "center",
     fontSize: 15
   },
@@ -292,6 +302,7 @@ const styles = StyleService.create({
   profileUserName: {
     textAlign: "center",
     marginBottom: 5,
+    fontWeight: "bold"
   },
   profileStats: {
     flex: "space-between",
@@ -313,13 +324,12 @@ const styles = StyleService.create({
     //position: 'absolute',
     width: "75%",
     alignSelf: "center",
-    marginTop: "5%",
-    margin: 5,
+    margin: "5%",
   },
   editProfileButton: {
     width: "100%",
     alignSelf: "center",
-    margin: 10,
+    margin: "5%",
   },
   pollButton: {
     marginVertical: 10,
@@ -364,5 +374,11 @@ const styles = StyleService.create({
   pollsHeader: {
     textAlign: "center",
     fontSize: 25,
+    fontWeight: "bold",
+    marginVertical: 5
   },
+  profilePicContainer: {
+    flexDirection: "row",
+    justifyContent: "center"
+  }
 });

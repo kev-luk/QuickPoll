@@ -71,10 +71,17 @@ export default function Login({ navigation }) {
           // Handle Errors here.
         });
 
-      dbh.collection("users").doc(firebase.auth().currentUser.uid).set({
-        name: "",
-        bio: ""
-      })
+
+      let userRef = dbh.collection('users').doc(firebase.auth().currentUser.uid);
+      let user = await userRef.get();
+
+      if (!user.exists) {
+        dbh.collection("users").doc(firebase.auth().currentUser.uid).set({
+          name: "",
+          location: "",
+          bio: ""
+        })
+      }
 
       firebase.auth().onAuthStateChanged(function (user) {
         if (user) {

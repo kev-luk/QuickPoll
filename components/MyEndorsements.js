@@ -86,6 +86,7 @@ const MyEndorsements = () => {
     }, 500);
     dbh
       .collection("posts")
+      .limit(10)
       .get()
       .then(function (querySnapshot) {
         setIds(querySnapshot.docs.map((doc) => doc.id));
@@ -117,7 +118,7 @@ const MyEndorsements = () => {
               <Text
                 style={styles.trendHeader}
               >
-                Trending Polls
+                Checkout these Polls
               </Text>
               <FlatList
                 extraData={refresh}
@@ -145,7 +146,7 @@ const MyEndorsements = () => {
                     data={poll.pollResults}
                     style={{
                       data: {
-                        fill: theme["color-primary-500"],
+                        fill: '#0084ff',
                       },
                     }}
                     animate={{
@@ -177,9 +178,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     //backgroundColor: "white",
+    marginBottom: 10
   },
   title: {
-    flex: 0.1,
+    flex: 1,
     alignItems: "center",
   },
   questionHeader: {
@@ -226,5 +228,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "600",
     marginBottom: 15,
+    textAlign: "center"
   }
 });

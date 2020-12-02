@@ -6,6 +6,7 @@ import {
   ScrollView,
   FlatList,
   AsyncStorage,
+  LogBox
 } from "react-native";
 import { Button, StyleService, Layout, Spinner } from "@ui-kitten/components";
 import * as firebase from "firebase";
@@ -18,6 +19,8 @@ import {
 } from "victory-native";
 import { default as theme } from "../theme.json";
 import { useGlobal } from "reactn";
+
+console.disableYellowBox = true;
 
 const Home = ({ navigation }) => {
   const dbh = firebase.firestore();
