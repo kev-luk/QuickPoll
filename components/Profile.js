@@ -45,7 +45,6 @@ const ProfileSettings = ({ navigation }) => {
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
-
     recieveUser().then(() => setRefreshing(false));
   }, []);
 
@@ -62,18 +61,25 @@ const ProfileSettings = ({ navigation }) => {
     setPoll(data);
   };
 
+  const deletePoll = () => {
+
+  }
+
   // get polls that have same uuid
-  dbh.collection("posts").where("author", "==", firebase.auth().currentUser.uid)
-    .get()
-    .then(function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
-        const recievedPosts = querySnapshot.docs.map((doc) => doc.data());
-        setPosts(recievedPosts);
+  const getData = () => {
+    dbh.collection("posts").where("author", "==", firebase.auth().currentUser.uid)
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          const recievedPosts = querySnapshot.docs.map((doc) => doc.data());
+          console.log(recievedPosts)
+          setPosts(recievedPosts);
+        });
+      })
+      .catch(function (error) {
+        console.log("Error getting documents: ", error);
       });
-    })
-    .catch(function (error) {
-      console.log("Error getting documents: ", error);
-    });
+  }
 
   const renderList = (item, curPost) => {
     return (
@@ -109,6 +115,7 @@ const ProfileSettings = ({ navigation }) => {
 
   useEffect(() => {
     setTimeout(() => {
+      getData()
       setLoading(false);
     }, 500);
   }, []);
@@ -156,6 +163,51 @@ const ProfileSettings = ({ navigation }) => {
                       }}
                     />
                   </View>
+                  <Modal
+                    visible={modalVisible}
+                    animationType="slide"
+                    onRequestClose={() => {
+                      setModalVisible(false);
+                    }}
+                    transparent={true}
+                  >
+                    <View style={styles.tab}>
+                      <Text style={styles.questionHeader}>{title}</Text>
+                      <VictoryChart domainPadding={{ x: 25 }}>
+                        <VictoryGroup>
+                          <VictoryBar
+                            data={poll.pollResults}
+                            style={{
+                              data: {
+                                fill: theme["color-primary-500"],
+                              },
+                            }}
+                            animate={{
+                              duration: 2000,
+                              onLoad: { duration: 500 },
+                            }}
+                          />
+                        </VictoryGroup>
+                      </VictoryChart>
+                      <Button
+                        onPress={() => {
+                          setModalVisible(false);
+                        }}
+                        status="danger"
+                        style={{ width: "75%", alignSelf: "center" }}
+                      >
+                        Delete
+                      </Button>
+                      <Button
+                        onPress={() => {
+                          setModalVisible(false);
+                        }}
+                        style={{ width: "75%", alignSelf: "center" }}
+                      >
+                        Close
+                      </Button>
+                    </View>
+                  </Modal>
                 </View>
               </View>
             </View>
@@ -166,24 +218,13 @@ const ProfileSettings = ({ navigation }) => {
               }}
               status="info"
               style={styles.logoutButton}
-            //status="danger"
             >
               Edit Profile
             </Button>
-            {/* <TouchableOpacity style={styles.pollButton}>
-              <Text style={styles.pollButtonText}>Which movie is better?</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.pollButton}>
-              <Text style={styles.pollButtonText}>Favorite color?</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.pollButton}>
-              <Text style={styles.pollButtonText}>Best artist of 2020?</Text>
-            </TouchableOpacity> */}
             <Button
               onPress={onLogout}
               status="danger"
               style={styles.logoutButton}
-            //status="danger"
             >
               Logout
             </Button>
@@ -222,6 +263,7 @@ const styles = StyleService.create({
   },
   profileLocation: {
     marginBottom: 5,
+    textAlign: "center"
   },
   profileSocialsContainer: {
     flexDirection: "row",
@@ -262,6 +304,7 @@ const styles = StyleService.create({
     margin: 10,
   },
   pollButton: {
+    width: 100,
     marginVertical: 10,
     marginHorizontal: 16,
     padding: 15,

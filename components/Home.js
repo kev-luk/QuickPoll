@@ -7,7 +7,7 @@ import {
   FlatList,
   AsyncStorage,
 } from "react-native";
-import { Button, StyleService } from "@ui-kitten/components";
+import { Button, StyleService, Layout, Spinner } from "@ui-kitten/components";
 import * as firebase from "firebase";
 import "firebase/firestore";
 import {
@@ -155,7 +155,11 @@ const Home = ({ navigation }) => {
   };
 
   if (loading) {
-    return <View></View>;
+    return (
+      <Layout style={styles.body} level="1">
+        <Spinner />
+      </Layout>
+    )
   } else {
     return (
       <View style={styles.contentContainer}>
@@ -177,6 +181,11 @@ const Home = ({ navigation }) => {
 export default Home;
 
 const styles = StyleService.create({
+  body: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   contentContainer: {
     flex: 1,
     //backgroundColor: "background-basic-color-2",
