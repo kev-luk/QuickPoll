@@ -17,8 +17,6 @@ const EditProfile = ({ navigation }) => {
       bio: bio,
     })
 
-    setName("")
-    setBio("")
     Alert.alert("Profile Updated!")
   }
 
